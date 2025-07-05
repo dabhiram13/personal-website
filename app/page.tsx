@@ -18,6 +18,7 @@ import {
   BLOG_POSTS,
   EMAIL,
   SOCIAL_LINKS,
+  DESIGNS,
 } from './data'
 import IosShareIcon from '@mui/icons-material/IosShare';
 import LaunchIcon from '@mui/icons-material/Launch';
@@ -168,6 +169,8 @@ function MagneticSocialLink({
 
 export default function Personal() {
   const router = useRouter()
+  const [activeTab, setActiveTab] = useState<'projects' | 'design'>('projects')
+
   return (
     <motion.main
       className="space-y-24"
@@ -208,63 +211,164 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Projects</h3>
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        
-          {PROJECTS.map((project) => (
-            <div key={project.name} className="space-y-2">
-              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
-              </div>
-              <div className="px-1">
-                <div className="flex items-center gap-3 mb-1">
-                  <a
-                    className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                    href={project.link}
-                    target="_blank"
-                  >
-                    {project.name}
-                    <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                  </a>
-                  {project.tag && (
-                    <span className="inline-flex items-center rounded-full bg-green-50 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300 ring-1 ring-inset ring-green-600/20 dark:ring-green-500/30 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white cursor-pointer ">
-                      {project.tag} 
-                    </span>
-                  )}
-                </div>
-            
-                <p>
-                <a
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50 mr-4"
-                  href={project.github}
-                  target="_blank"
-                >
-                  Github 
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                </a>
-                
-                <a
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                  href={project.link}
-                  target="_blank"
-                >
-                  View  <LaunchIcon
-                  fontSize="small"
-                  />
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                </a>
-                </p>
-             
-                <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
-                 
-               
-              </div>
-            </div>
-          ))}
+        <div className="flex justify-center gap-8 mb-8">
+          <button
+            onClick={() => setActiveTab('projects')}
+            className={cn(
+              "text-lg font-medium relative",
+              activeTab === 'projects' 
+                ? "text-zinc-900 dark:text-zinc-50" 
+                : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50"
+            )}
+          >
+            Projects
+            {activeTab === 'projects' && (
+              <motion.div
+                layoutId="activeTab"
+                className="absolute -bottom-2 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-zinc-50"
+                initial={false}
+              />
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab('design')}
+            className={cn(
+              "text-lg font-medium relative",
+              activeTab === 'design' 
+                ? "text-zinc-900 dark:text-zinc-50" 
+                : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50"
+            )}
+          >
+            Design
+            {activeTab === 'design' && (
+              <motion.div
+                layoutId="activeTab"
+                className="absolute -bottom-2 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-zinc-50"
+                initial={false}
+              />
+            )}
+          </button>
         </div>
+
+        <AnimatePresence mode="wait">
+          {activeTab === 'projects' && (
+            <motion.div
+              key="projects"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
+            >
+              {PROJECTS.map((project) => (
+                <motion.div
+                  key={project.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-2"
+                >
+                  <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
+                    <ProjectVideo src={project.video} />
+                  </div>
+                  <div className="px-1">
+                    <div className="flex items-center gap-3 mb-1">
+                      <a
+                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                        href={project.link}
+                        target="_blank"
+                      >
+                        {project.name}
+                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                      </a>
+                      {project.tag && (
+                        <span className="inline-flex items-center rounded-full bg-green-50 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300 ring-1 ring-inset ring-green-600/20 dark:ring-green-500/30 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white cursor-pointer">
+                          {project.tag}
+                        </span>
+                      )}
+                    </div>
+                    <p>
+                      <a
+                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50 mr-4"
+                        href={project.github}
+                        target="_blank"
+                      >
+                        Github
+                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                      </a>
+                      <a
+                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                        href={project.link}
+                        target="_blank"
+                      >
+                        View <LaunchIcon fontSize="small" />
+                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                      </a>
+                    </p>
+                    <p className="text-base text-zinc-600 dark:text-zinc-400">
+                      {project.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+
+          {activeTab === 'design' && (
+            <motion.div
+              key="designs"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
+            >
+              {DESIGNS.map((design) => (
+                <motion.div
+                  key={design.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-2"
+                >
+                  <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
+                    <ProjectVideo src={design.video} />
+                  </div>
+                  <div className="px-1">
+                    <div className="flex items-center gap-3 mb-1">
+                      <a
+                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                        href={design.link}
+                        target="_blank"
+                      >
+                        {design.name}
+                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                      </a>
+                      {design.tag && (
+                        <span className="inline-flex items-center rounded-full bg-purple-50 dark:bg-purple-900/30 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-300 ring-1 ring-inset ring-purple-600/20 dark:ring-purple-500/30 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white cursor-pointer">
+                          {design.tag}
+                        </span>
+                      )}
+                    </div>
+                    <a
+                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                      href={design.link}
+                      target="_blank"
+                    >
+                      View <LaunchIcon fontSize="small" />
+                      <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                    </a>
+                    <p className="text-base text-zinc-600 dark:text-zinc-400 mt-2">
+                      {design.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.section>
 
       <motion.section

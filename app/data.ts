@@ -12,6 +12,15 @@ type Project = {
   tag?: string
 }
 
+type Design = {
+  name: string
+  description: string
+  link: string
+  video: string
+  id: string
+  tag?: string
+}
+
 type WorkExperience = {
   company: string
   title: string
@@ -63,6 +72,25 @@ export const PROJECTS: Project[] = [
     video :'/miku.mp4',
     id: 'project3'
   }
+]
+
+export const DESIGNS: Design[] = [
+  {
+    name: 'Click',
+    description: 'revamed the ui with more minimalist design of Pika.style along with the ux',
+    link: 'https://design1.example.com',
+    video: '/click.mp4',
+    id: 'design1',
+    tag: 'UI/UX'
+  },
+  // {
+  //   name: 'Motion Dashboard',
+  //   description: 'Interactive dashboard with fluid transitions and micro-interactions',
+  //   link: 'https://design2.example.com',
+  //   video: '/design2.mp4',
+  //   id: 'design2',
+  //   tag: 'Motion Design'
+  // }
 ]
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
