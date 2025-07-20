@@ -83,6 +83,14 @@ export const DESIGNS: Design[] = [
     id: 'design1',
     tag: 'UI/UX'
   },
+  {
+    name: 'Perplexity',
+    description: 'better design and landing page for perplexity made with figma',
+    link: 'https://waliilaw.me',
+    video: '/perplexity.com',
+    id: 'design2',
+    tag: 'Figma'
+  },
   // {
   //   name: 'Motion Dashboard',
   //   description: 'Interactive dashboard with fluid transitions and micro-interactions',
