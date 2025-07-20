@@ -87,7 +87,7 @@ export const DESIGNS: Design[] = [
     name: 'Perplexity',
     description: 'better design and landing page for perplexity made with figma',
     link: 'https://waliilaw.me',
-    video: '/perplexity.com',
+    video: '/perplexity.png',
     id: 'design2',
     tag: 'Figma'
   },
