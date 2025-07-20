@@ -81,7 +81,7 @@ export const DESIGNS: Design[] = [
     link: 'https://design1.example.com',
     video: '/click.mp4',
     id: 'design1',
-    tag: 'UI/UX'
+    tag: 'Framer'
   },
   {
     name: 'Perplexity',
