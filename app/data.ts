@@ -71,7 +71,16 @@ export const PROJECTS: Project[] = [
     link: 'https://miku-san.waliilaw.me',
     video :'/miku.mp4',
     id: 'project3'
-  }
+  },
+  {
+    name: 'Unreal UI',
+    github:'https://github.com/waliilaw/Unreal-UI-',
+    description: 'Fast, Flexible, and Fully Customizable UI Components.',
+    link: 'https://unrealui.waliilaw.me',
+    video: '/UnrealUI.mp4',
+    id: 'project4',
+    tag: 'Building' 
+  },
 ]
 
 export const DESIGNS: Design[] = [
@@ -109,14 +118,7 @@ export const DESIGNS: Design[] = [
     tag: 'Framer'
   },
  
-  {
-    name: 'Unreal UI',
-    description: 'Fast, Flexible, and Fully Customizable UI Components.',
-    link: 'https://waliilaw.me',
-    video: '/UnrealUI.mp4',
-    id: 'design4',
-    tag: 'Figma' 
-  },
+
 
   // {
   //   name: 'Motion Dashboard',
