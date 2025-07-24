@@ -92,6 +92,22 @@ export const DESIGNS: Design[] = [
     tag: 'Figma'
   },
   // {
+  //   name: 'Unreal UI',
+  //   description: '',
+  //   link: 'https://waliilaw.me',
+  //   video: '/',
+  //   id: 'design3',
+  //   tag: 'Figma' 
+  // },
+  {
+    name: 'Zone',
+    description: 'Secure your code ownership on the Solana blockchain. Protect intellectual property, monetize repositories, and build a verifiable portfolio of your work.',
+    link: 'https://waliilaw.me',
+    video: '/Zone.mp4',
+    id: 'design3',
+    tag: 'Motion' 
+  },
+  // {
   //   name: 'Motion Dashboard',
   //   description: 'Interactive dashboard with fluid transitions and micro-interactions',
   //   link: 'https://design2.example.com',
