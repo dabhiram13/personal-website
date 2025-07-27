@@ -185,9 +185,42 @@ export default function Personal() {
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
            I like creating Minimalistic sites and in free time I play guitar , game and gulp music . Links to all my socials below .
-           <span className='ml-1 bg-green-200 dark:text-black'>
+           <motion.span 
+            initial={{ 
+              backgroundSize: "0% 100%",
+              y: -100,
+              opacity: 0
+            }}
+            animate={{ 
+              backgroundSize: "100% 100%",
+              y: 0,
+              opacity: 1
+            }}
+            transition={{ 
+              duration: 0.7,
+              backgroundSize: {
+                delay: 0.3,
+                duration: 0.7,
+                ease: "easeInOut"
+              },
+              y: {
+                type: "spring",
+                damping: 12,
+                stiffness: 100
+              },
+              opacity: {
+                duration: 0.2
+              }
+            }}
+            className='ml-1 dark:text-black relative inline-block'
+            style={{
+              background: "linear-gradient(to right, #bbf7d0 0%, #bbf7d0 100%)",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "left"
+            }}
+           >
             Open to work
-           </span>
+           </motion.span>
           </p>
         </div>
       </motion.section>
@@ -402,7 +435,7 @@ export default function Personal() {
         </AnimatePresence>
       </motion.section>
 
-      <motion.section
+      {/* <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
@@ -438,7 +471,7 @@ export default function Personal() {
             </a>
           ))}
         </div>
-      </motion.section>
+      </motion.section> */}
 
       <motion.section
         variants={VARIANTS_SECTION}
