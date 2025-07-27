@@ -191,7 +191,38 @@ export default function Personal() {
           </p>
         </div>
       </motion.section>
-<div className='absolute -translate-y-20'>
+<div className='absolute -translate-y-20 flex items-center gap-4'>
+      <motion.button
+        initial={{ opacity: 0.8 }}
+        whileHover={{ 
+          opacity: 1,
+          scale: 1.02,
+          filter: "blur(0.3px)",
+          transition: { duration: 0.2 }
+        }}
+        className="px-4 py-1 rounded-md text-sm font-medium 
+          bg-zinc-100 dark:bg-zinc-800/80 
+          text-zinc-800 dark:text-zinc-200          transition-colors"
+        onClick={() => {
+          const link = document.createElement('a');
+          link.href = '/resume.pdf';
+          link.download = 'resume.pdf';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }}
+      >
+        <motion.span
+          initial={{ display: "inline-block" }}
+          animate={{ rotate: 0 }}
+          whileHover={{ 
+            rotate: [0, -10, 10, -10, 10, 0],
+            transition: { duration: 0.5 }
+          }}
+        >
+          Resume 📄
+        </motion.span>
+      </motion.button>
 
       <PointerHighlight
        rectangleClassName="bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-700 leading-loose"
