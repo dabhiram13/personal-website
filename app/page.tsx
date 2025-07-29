@@ -25,9 +25,11 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import { Modals } from '@/components/ui/five'
 import { PointerHighlight } from '@/components/ui/pointer-highlight'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
+
+const videoCache = new Map()
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -55,9 +57,39 @@ type ProjectVideoProps = {
 function ProjectVideo({ src }: ProjectVideoProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [isVideoReady, setIsVideoReady] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isInView, setIsInView] = useState(false)
   
   useEffect(() => {
-    // Minimum loading duration of 1 second
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          setIsInView(entry.isIntersecting)
+          if (entry.isIntersecting && videoRef.current) {
+            videoRef.current.play().catch(() => {})
+          } else if (videoRef.current) {
+            videoRef.current.pause()
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!videoCache.has(src)) {
+      const preloadVideo = document.createElement('video')
+      preloadVideo.src = src
+      preloadVideo.load()
+      videoCache.set(src, true)
+    }
+
     const minLoadingTimeout = setTimeout(() => {
       if (isVideoReady) {
         setIsLoading(false)
@@ -65,7 +97,7 @@ function ProjectVideo({ src }: ProjectVideoProps) {
     }, 1000)
 
     return () => clearTimeout(minLoadingTimeout)
-  }, [isVideoReady])
+  }, [isVideoReady, src])
 
   return (
     <MorphingDialog
@@ -95,10 +127,12 @@ function ProjectVideo({ src }: ProjectVideoProps) {
             transition={{ duration: 0.4 }}
           >
             <video
+              ref={videoRef}
               src={src}
-              autoPlay
+              autoPlay={isInView}
               loop
               muted
+              playsInline
               onLoadedData={() => setIsVideoReady(true)}
               className="aspect-video w-full cursor-zoom-in rounded-xl"
             />
@@ -112,6 +146,7 @@ function ProjectVideo({ src }: ProjectVideoProps) {
             autoPlay
             loop
             muted
+            playsInline
             className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
           />
         </MorphingDialogContent>
