@@ -188,12 +188,10 @@ export default function Personal() {
            <motion.span 
             initial={{ 
               backgroundSize: "0% 100%",
-              y: -100,
               opacity: 0
             }}
             animate={{ 
               backgroundSize: "100% 100%",
-              y: 0,
               opacity: 1
             }}
             whileHover={{ 
@@ -207,11 +205,6 @@ export default function Personal() {
                 delay: 0.3,
                 duration: 0.7,
                 ease: "easeInOut"
-              },
-              y: {
-                type: "spring",
-                damping: 12,
-                stiffness: 100
               },
               opacity: {
                 duration: 0.2
