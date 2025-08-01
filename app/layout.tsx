@@ -7,7 +7,7 @@ import { ThemeProvider } from 'next-themes'
 import { Analytics } from "@vercel/analytics/next"
 import { icons } from 'lucide-react'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { useLenis } from '@/hooks/useLenis'
+import { LenisProvider } from '@/components/LenisProvider'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -43,7 +43,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  useLenis()
   return (
     <html lang="en" suppressHydrationWarning>
       <body
