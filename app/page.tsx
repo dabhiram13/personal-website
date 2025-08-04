@@ -57,7 +57,7 @@ function ProjectVideo({ src }: ProjectVideoProps) {
   const [isVideoReady, setIsVideoReady] = useState(false)
   
   useEffect(() => {
-    // Minimum loading duration of 1 second
+
     const minLoadingTimeout = setTimeout(() => {
       if (isVideoReady) {
         setIsLoading(false)
