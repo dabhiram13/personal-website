@@ -158,18 +158,7 @@ function ProjectImage({ src }: any) {
     >
       <MorphingDialogTrigger>
         <div className="relative aspect-video w-full">
-          <AnimatePresence mode="wait">
-            {isLoading && (
-              <motion.div
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 z-10"
-              >
-                <Skeleton className="h-full w-full" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+    
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: isLoading ? 0 : 1 }}
