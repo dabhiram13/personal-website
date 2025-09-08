@@ -136,6 +136,12 @@ function ProjectVideo({ src }: any) {
 function ProjectImage({ src }: any) {
   const [isLoading, setIsLoading] = useState(true)
 
+  useEffect(() => {
+  const img = new Image()
+  img.src = src
+  img.onload = () => setIsLoading(false)
+}, [src])
+
   return (
     <MorphingDialog
       transition={{
@@ -147,18 +153,13 @@ function ProjectImage({ src }: any) {
       <MorphingDialogTrigger>
         <div className="relative aspect-video w-full">
     
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isLoading ? 0 : 1 }}
-            transition={{ duration: 0.4 }}
-          >
-            <img
-            src={src}
-            onLoad={() => setIsLoading(false)}
-           className="aspect-video w-full rounded-xl object-contain bg-black"
-
-            />
-          </motion.div>
+   <motion.img
+  src={src}
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.4 }}
+  className="aspect-video w-full rounded-xl object-contain bg-black"
+/>
         </div>
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
