@@ -188,7 +188,6 @@ function ProjectImage({ src }: any) {
   )
 }
 
-
 function MagneticSocialLink({
   children,
   link,
