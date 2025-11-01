@@ -70,6 +70,18 @@ export const PROJECTS: Project[] = [
     type : 'image'
   },
   {
+    name: 'Lumina',
+    github:'https://github.com/waliilaw/Lumina-Live' , 
+    description:
+      'Proof-of-Progress Solana ⟡',
+    link: 'https://lumina.waliilaw.me',
+    video :
+      '/lumina.mp4',
+    id: 'project6',
+    tag: 'Building',
+    type : 'video'
+  },
+  {
     name: 'Oktopus',
     github:'https://github.com/waliilaw/oktopus' , 
     description:
