@@ -578,7 +578,22 @@ export default function Personal() {
           </p>
         </div>
       </motion.section>
-<div className='absolute -translate-y-20 flex items-center gap-4'>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+        className="!-mt-16"
+      >
+        <div className="flex items-center justify-start space-x-3">
+          {SOCIAL_LINKS.map((link) => (
+            <MagneticSocialLink key={link.label} link={link.link}>
+              {link.label}
+            </MagneticSocialLink>
+          ))}
+        </div>
+      </motion.section>
+
+      <div className='absolute -translate-y-20 flex items-center gap-4'>
       <motion.button
         initial={{ opacity: 0.8 }}
         whileHover={{ 
@@ -627,6 +642,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
+        className="!mt-12"
       >
         <div className="flex justify-center gap-8 mb-8">
           <button
@@ -658,24 +674,6 @@ export default function Personal() {
           >
             Design
             {activeTab === 'design' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute -bottom-2 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-zinc-50"
-                initial={false}
-              />
-            )}
-          </button>
-          <button
-            onClick={() => setActiveTab('open-source')}
-            className={cn(
-              "text-lg font-medium relative",
-              activeTab === 'open-source' 
-                ? "text-zinc-900 dark:text-zinc-50" 
-                : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50"
-            )}
-          >
-            Open Source
-            {activeTab === 'open-source' && (
               <motion.div
                 layoutId="activeTab"
                 className="absolute -bottom-2 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-zinc-50"
@@ -818,84 +816,6 @@ export default function Personal() {
               ))}
             </motion.div>
           )}
-
-          {activeTab === 'open-source' && (
-            <motion.div
-              key="open-source"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-6"
-            >
-              {OPEN_SOURCE_CONTRIBUTIONS.map((contrib) => (
-                <motion.div
-                  key={contrib.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative rounded-2xl bg-zinc-50/40 p-6 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50"
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <a
-                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                        href={contrib.githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {contrib.repository}
-                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                      </a>
-                      {contrib.tag && (
-                        <span className="inline-flex items-center rounded-full bg-orange-50 dark:bg-orange-900/30 px-2 py-1 text-xs font-medium text-orange-700 dark:text-orange-300 ring-1 ring-inset ring-orange-600/20 dark:ring-orange-500/30">
-                          {contrib.tag}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-base text-zinc-600 dark:text-zinc-400">
-                      {contrib.description}
-                    </p>
-                    <div className="flex items-center gap-4 flex-wrap">
-                      <a
-                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                        href={contrib.githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        GitHub
-                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                      </a>
-                      {contrib.pullRequests.length > 0 && (
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-sm text-zinc-600 dark:text-zinc-400">
-                            Pull Requests:
-                          </span>
-                          {contrib.pullRequests.map((pr, index) => (
-                            <span key={index} className="flex items-center gap-1">
-                              <a
-                                className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50 text-sm"
-                                href={pr.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {pr.title}
-                                <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                              </a>
-                              {index < contrib.pullRequests.length - 1 && (
-                                <span className="text-zinc-400">•</span>
-                              )}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
         </AnimatePresence>
       </motion.section>
 
@@ -980,26 +900,6 @@ export default function Personal() {
               </Link>
             ))}
           </AnimatedBackground>
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-5 text-lg font-medium">Connect</h3>
-        <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Feel free to contact me at{' '}
-          <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>
-            {EMAIL}
-          </a>
-        </p>
-        <div className="flex items-center justify-start space-x-3">
-          {SOCIAL_LINKS.map((link) => (
-            <MagneticSocialLink key={link.label} link={link.link}>
-              {link.label}
-            </MagneticSocialLink>
-          ))}
         </div>
       </motion.section>
     </motion.main>
