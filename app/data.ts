@@ -85,7 +85,7 @@ export const PROJECTS: Project[] = [
     name: 'Re:mail',
     github:'https://github.com/waliilaw/Re-mail' , 
     description:
-      'Tempo mail',
+      'disposable email addresses on decentra network',
     link: 'https://waliilaw.me/',
     image :
       '/remail.png',
