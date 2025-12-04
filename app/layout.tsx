@@ -16,12 +16,12 @@ export const viewport: Viewport = {
 }
 
 export const metadata: any = {
-  metadataBase: new URL('https://waliilaw.me/'),
+  metadataBase: new URL('https://sridurga.me/'),
   alternates: {
     canonical: '/'
   },
   title: {
-    default: 'Wali',
+    default: 'Sri Durga Abhiram',
   },};
 
   icon : {

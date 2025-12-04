@@ -14,7 +14,7 @@ export function Header() {
         transition={{ duration: 0.8 }}
       >
         <Image 
-          src={"/wali.png"}
+          src={"/sridurga.png"}
           width={100}
           height={100}
           alt='pfp'
@@ -30,7 +30,7 @@ export function Header() {
             className="text-black  dark:text-white font-medium "
             delay={0.1}
           >
-            Wali ⟡
+            Sri Durga Abhiram ⟡
           </TextEffect>
           <TextEffect
             as="p"

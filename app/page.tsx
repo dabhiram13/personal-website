@@ -24,7 +24,6 @@ import {
 import IosShareIcon from '@mui/icons-material/IosShare';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { Modals } from '@/components/ui/five'
-import { PointerHighlight } from '@/components/ui/pointer-highlight'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -544,86 +543,12 @@ export default function Personal() {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-           I like creating Minimalistic sites and in free time I play guitar , game and gulp music . Links to all my socials below .
-           <motion.span 
-            initial={{ 
-              backgroundSize: "0% 100%",
-              opacity: 0
-            }}
-            animate={{ 
-              backgroundSize: "100% 100%",
-              opacity: 1
-            }}
-            whileHover={{ 
-              scale: 1.02,
-              filter: "blur(0.3px)",
-              transition: { duration: 0.2 }
-            }}
-            transition={{ 
-              duration: 0.7,
-              backgroundSize: {
-                delay: 0.3,
-                duration: 0.7,
-                ease: "easeInOut"
-              },
-              opacity: {
-                duration: 0.2
-              }
-            }}
-            className='ml-1 dark:text-black relative inline-block cursor-pointer bg-[#bbf7d0]'
-           >
-          Open to work
-
-           </motion.span>
+            Building AI‑native products at breakneck speed—turning scrappy experiments into lean, revenue‑first SaaS. Links to all my socials below.
           </p>
         </div>
       </motion.section>
 
-      <div className='flex items-center gap-4 -mt-16'>
-      <motion.button
-        initial={{ opacity: 0.8 }}
-        whileHover={{ 
-          opacity: 1,
-          scale: 1.02,
-          filter: "blur(0.3px)",
-          transition: { duration: 0.2 }
-        }}
-        className="px-4 py-1 rounded-md text-sm font-medium 
-          bg-zinc-100 dark:bg-zinc-800/80 
-          text-zinc-800 dark:text-zinc-200          transition-colors"
-        onClick={() => {
-          const link = document.createElement('a');
-          link.href = '/resume.pdf';
-          link.download = 'resume.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        }}
-      >
-       
-          Resume 📄
-</motion.button>
-
-      <PointerHighlight
-       rectangleClassName="bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-700 leading-loose"
-       pointerClassName="text-blue-500 h-3 w-3"
-       containerClassName="inline-block mx-1"
-      >
-        <motion.span
-          initial={{ opacity: 1 }}
-          whileHover={{ 
-            scale: 1.02,
-            filter: "blur(0.3px)",
-            transition: { duration: 0.2 }
-          }}
-          className='relative z-10 text-zinc-800 dark:text-zinc-100 cursor-pointer inline-block'
-          onClick={() => { window.open('https://cal.com/waliilaw', '_blank', 'noopener,noreferrer') }}
-        >
-      
-            Book a Meet
-  </motion.span>
-      </PointerHighlight>
-</div>
+      {/* Removed resume download and meeting CTA per user request */}
 
       <motion.section
         variants={VARIANTS_SECTION}
@@ -823,7 +748,7 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <GitHubContributionsGraph username="waliilaw" />
+        <GitHubContributionsGraph username="dabhiram13" />
       </motion.section>
 
       {/* <motion.section

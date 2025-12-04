@@ -58,100 +58,16 @@ type OpenSourceContrib = {
 }
 
 export const PROJECTS: Project[] = [
-  {
-    name: 'FLux AO',
-    github:'https://github.com/waliilaw/Flux' , 
-    description:
-      'AI Based MCP tool for Arweave and AO ecosystem',
-    link: 'https://useflux.ar.io',
-    video:
-      '/flux.mp4',
-    id: 'project1',
-    tag: '$5000 Grant Recipient'
-  },
     {
-    name: 'Revealing Soon',
-    github:'https://github.com/waliilaw' , 
+    name: 'AI Prompt Playground',
+    github:'https://github.com/dabhiram13/Prompt-Playground-Application' , 
     description:
-      '',
-    link: 'https://waliilaw.me',
+      'AI Prompt playground for testing and experimenting with AI prompts',
+    link: 'https://sridurga.me',
     image :
-      '/k.png',
+      '/project1.png',
     id: 'project1',
-    tag: '$3000 Grant Recipient',
     type : 'image'
-  },
-    {
-    name: 'Re:mail',
-    github:'https://github.com/waliilaw/Re-mail' , 
-    description:
-      'disposable email addresses on decentra network',
-    link: 'https://waliilaw.me/',
-    image :
-      '/remail.png',
-    id: 'project7',
-    tag: 'Building',
-    type : 'image'
-  },
-  {
-    name: 'Lumina',
-    github:'https://github.com/waliilaw/Lumina-Live' , 
-    description:
-      'Proof-of-Progress Solana',
-    link: 'https://lumina.waliilaw.me',
-    video :
-      '/lumina.mp4',
-    id: 'project6',
-    tag: 'Building',
-    type : 'video'
-  },
-  {
-    name: 'Oktopus',
-    github:'https://github.com/waliilaw/oktopus' , 
-    description:
-      'Web3 SDK for building web3 apps',
-    link: 'https://oktopus.waliilaw.me',
-    video:
-      '/oktopus.mp4',
-    id: 'project5',
-    tag: 'Building'
-  }, 
-   {
-    name: 'RustyWorks',
-    github:'https://github.com/Rusty-Works/Rusty-Works' , 
-    description:
-      'Showcasing complex rust backend architechture with live demos',
-    link: 'https://rustyworks.waliilaw.me',
-    video:
-      '/rustyworks.mp4',
-    id: 'project5',
-    tag: 'Proof of Work'
-  },
-  {
-    name: 'ArBet',
-    github:'https://github.com/waliilaw/ArBet' , 
-    description: 'Interactive 2D game with ingame web3 contracts with lua',
-    link: 'https://arbet.waliilaw.me',
-    video:
-      '/arbet.mp4',
-    id: 'project2',
-  },
-  {
-    name : 'Miku-san',
-    github:'https://github.com/waliilaw/miku-san-PRIVATE',
-    description:'Personal Portfolio creation and built in editor',
-    link: 'https://miku-san.waliilaw.me',
-    video :'/miku.mp4',
-    id: 'project3'
-  },
-  {
-    name: 'Unreal UI',
-    github:'https://github.com/waliilaw/Unreal-UI-',
-    description: 'Fast, Flexible, and Fully Customizable UI Components.',
-    link: 'https://waliilaw.me',
-    video: '/ui.mp4',
-    id: 'project4',
-    tag: 'Building' 
   },
 ]
 
@@ -159,47 +75,11 @@ export const DESIGNS: Design[] = [
   {
     name: 'Zone',
     description: 'Secure your code ownership on the Solana blockchain. Protect intellectual property, monetize repositories, and build a verifiable portfolio of your work.',
-    link: 'https://waliilaw.me',
+    link: 'https://sridurga.me',
     video: '/Zone.mp4',
     id: 'design3',
     tag: 'Motion' 
   },
-  {
-    name: 'Perplexity',
-    description: 'better design and landing page for perplexity made with figma',
-    link: 'https://waliilaw.me',
-    video: '/Perplexity.mp4',
-    id: 'design2',
-    tag: 'Figma'
-  },
-  {
-    name: 'Zero Two',
-    description: 'Elevate your space with our premium collection of anime-inspired stickers, posters, bookmarks, and coasters',
-    link: 'https://waliilaw.me',
-    video: '/Zerotwo.mp4',
-    id: 'design5',
-    tag: 'Motion' 
-  },
-
-  {
-    name: 'Click',
-    description: 'revamed the ui with more minimalist design of Pika.style along with the ux',
-    link: 'https://design1.example.com',
-    video: '/click.mp4',
-    id: 'design1',
-    tag: 'Framer'
-  },
- 
-
-
-  // {
-  //   name: 'Motion Dashboard',
-  //   description: 'Interactive dashboard with fluid transitions and micro-interactions',
-  //   link: 'https://design2.example.com',
-  //   video: '/design2.mp4',
-  //   id: 'design2',
-  //   tag: 'Motion Design'
-  // }
 ]
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -208,7 +88,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     title: 'Web3 Developer',
     start: '2025',
     end: 'Present',
-    link: 'https://waliilaw.me',
+    link: 'https://sridurga.me',
     id: 'work1',
   },
   {
@@ -216,7 +96,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     title: 'React Native Dev',
     start: "Jan",
     end: "Mar",
-    link: 'https://waliilaw.me',
+    link: 'https://sridurga.me',
     id: 'work2',
   },
   {
@@ -224,7 +104,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     title: 'Fullstack Developer',
     start: '2024',
     end: 'Present',
-    link: 'https://waliilaw.me',
+    link: 'https://sridurga.me',
     id: 'work3',
   },
 ]
@@ -259,23 +139,23 @@ export const BLOG_POSTS: BlogPost[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     label: 'Github',
-    link: 'https://github.com/waliilaw',
+    link: 'https://github.com/dabhiram13',
   },
   {
     label: 'Twitter',
-    link: 'https://twitter.com/waliilaww',
+    link: 'https://x.com/AIwithAbhi',
   },
   {
     label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/humaidwali20',
+    link: 'https://www.linkedin.com/in/sri-durga-abhiram-divyakolu-910128195',
   },
   {
     label: 'Instagram',
-    link: 'https://www.instagram.com/waliilaww',
+    link: 'https://www.instagram.com/abhiramsrii',
   },
 ]
 
-export const EMAIL = 'humaidwali20@gmail.com'
+export const EMAIL = 'dabhiram13@gmail.com'
 
 export const OPEN_SOURCE_CONTRIBUTIONS: OpenSourceContrib[] = [
   {
