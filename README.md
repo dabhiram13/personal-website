@@ -1,6 +1,4 @@
-portfolio template guide
-
-hello there! welcome to my portfolio template. this guide will help you customize this portfolio for your own use. let's make it super easy to understand!
+This guide will help you customize this portfolio for your own use. s
 
 what you'll get:
 • clean and modern design
@@ -53,15 +51,3 @@ tips:
 • test on mobile to make sure it looks good
 • update your projects regularly
 • make sure all links work
-
-need help?
-if you run into problems:
-• check the nextjs docs
-• look at the original repo
-• try the nextjs community
-
-happy customizing! hope this template helps showcase your awesome work 😊
-
-license
-this template is free to use for your personal portfolio.
-made by wali :)
