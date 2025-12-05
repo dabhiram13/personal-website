@@ -128,7 +128,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     title: 'Languages',
     description:
-      'Javascript , Typescript , Solidity , SQL , Rust ',
+      'Javascript , Typescript , SQL',
     link: '/',
     uid: 'blog-3',
     icon: CodeIcon
