@@ -1,70 +1,81 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import { Header } from './header'
 import { Footer } from './footer'
 import { ThemeProvider } from 'next-themes'
-import { Analytics } from "@vercel/analytics/next"
-import { icons } from 'lucide-react'
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { LenisProvider } from '@/components/LenisProvider'
+import { Nav } from '@/components/site/nav'
+import { SideRails } from '@/components/site/side-rails'
+import { InterfaceSoundProvider } from '@/components/site/sound'
+import { DesignProvider } from '@/components/site/design-provider'
+import { PERSONAL } from './data'
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff',
 }
 
-export const metadata: any = {
+export const metadata: Metadata = {
   metadataBase: new URL('https://sridurga.me/'),
-  alternates: {
-    canonical: '/'
-  },
+  alternates: { canonical: '/' },
   title: {
-    default: 'Sri Durga Abhiram',
-  },};
+    default: `${PERSONAL.name} | ${PERSONAL.tagline}`,
+    template: `%s | ${PERSONAL.name}`,
+  },
+  description: PERSONAL.summary,
+  icons: '/favicon.ico',
+}
 
-  icon : {
-    icons: '/favicon.ico'
-  }
-
-const geist = Geist({
-  variable: '--font-geist',
-  subsets: ['latin'],
-})
-
+const geist = Geist({ variable: '--font-geist', subsets: ['latin'] })
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
   subsets: ['latin'],
 })
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
+        className={`${geist.variable} ${geistMono.variable} ${spaceGrotesk.variable} min-h-screen antialiased`}
       >
         <ThemeProvider
-          enableSystem={true}
           attribute="class"
           storageKey="theme"
-          defaultTheme="system"
+          defaultTheme="light"
+          enableSystem={false}
         >
-          <LenisProvider>
-            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
-              <div className="relative mx-auto w-full max-w-screen-sm flex-1 px-4 pt-20">
-                <Header />
-                {children}
-                <SpeedInsights/>
+          <DesignProvider>
+            <InterfaceSoundProvider>
+              <LenisProvider>
+                <SideRails />
+                <Nav />
+                <div className="relative z-10 mx-auto min-h-screen w-full max-w-3xl border-x border-[var(--border)] bg-[var(--background)] px-6 pt-24 pb-6 sm:pt-28 sm:pb-6">
+                  <div
+                    aria-hidden="true"
+                    className="reference-edge-hatch pointer-events-none absolute inset-y-0 right-full hidden w-14 border-x border-[var(--border)]/70 xl:block"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="reference-edge-hatch pointer-events-none absolute inset-y-0 left-full hidden w-14 border-x border-[var(--border)]/70 xl:block"
+                  />
+                  <main className="relative flex min-h-dvh flex-col gap-8">
+                    {children}
+                  </main>
+                  <Footer />
+                </div>
+                <SpeedInsights />
                 <Analytics />
-                <Footer />
-              </div>
-            </div>
-          </LenisProvider>
+              </LenisProvider>
+            </InterfaceSoundProvider>
+          </DesignProvider>
         </ThemeProvider>
       </body>
     </html>
