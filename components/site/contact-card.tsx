@@ -3,6 +3,8 @@
 import { motion } from 'motion/react'
 import { ArrowUpRightIcon, CalendarIcon, MailIcon } from 'lucide-react'
 import { CONTACT } from '@/app/data'
+import { HaloButton } from '@/components/ui/halo-button'
+import { TextureOverlay } from '@/components/ui/texture-overlay'
 
 export function ContactCard() {
   return (
@@ -18,6 +20,11 @@ export function ContactCard() {
         className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"
       />
 
+      <TextureOverlay
+        texture="crosshatch"
+        className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay"
+      />
+
       <div className="relative px-6 py-14 text-white sm:px-10 sm:py-16">
         <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {CONTACT.heading}
@@ -26,17 +33,19 @@ export function ContactCard() {
           {CONTACT.subtext}
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href={CONTACT.primary.link}
-            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-zinc-900 transition-transform duration-200 hover:scale-[1.03]"
+          <HaloButton
+            onClick={() => (window.location.href = CONTACT.primary.link)}
+            className="!bg-white !text-zinc-900"
           >
-            {CONTACT.primary.link.startsWith('mailto:') ? (
-              <MailIcon className="h-4 w-4" />
-            ) : (
-              <CalendarIcon className="h-4 w-4" />
-            )}
-            {CONTACT.primary.label}
-          </a>
+            <span className="inline-flex items-center gap-2">
+              {CONTACT.primary.link.startsWith('mailto:') ? (
+                <MailIcon className="h-4 w-4" />
+              ) : (
+                <CalendarIcon className="h-4 w-4" />
+              )}
+              {CONTACT.primary.label}
+            </span>
+          </HaloButton>
           <a
             href={CONTACT.secondary.link}
             target="_blank"

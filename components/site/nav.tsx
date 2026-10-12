@@ -3,13 +3,24 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'motion/react'
-import { MoonIcon, SunIcon, Volume2Icon, VolumeXIcon } from 'lucide-react'
+import {
+  ArrowUpRightIcon,
+  MoonIcon,
+  SunIcon,
+  Volume2Icon,
+  VolumeXIcon,
+} from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
+import {
+  PopoverContent,
+  PopoverRoot,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { GitHubIcon, LinkedInIcon } from './icons'
 import { useInterfaceSound } from './sound'
-import { SOCIAL_LINKS, PERSONAL } from '@/app/data'
+import { SOCIAL_LINKS } from '@/app/data'
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -19,10 +30,44 @@ const NAV_LINKS = [
   { label: 'Guestbook', href: '/guestbook' },
 ]
 
+function GitHubPopover({ link }: { link: string }) {
+  return (
+    <PopoverRoot>
+      <PopoverTrigger className="!h-auto !border-0 !bg-transparent !p-1.5 !text-[var(--text-faint)] transition-colors hover:!text-[var(--text)]">
+        <GitHubIcon className="h-4 w-4" />
+      </PopoverTrigger>
+      <PopoverContent className="!w-56">
+        <div className="p-1">
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-zinc-800 transition-colors hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-800"
+          >
+            <GitHubIcon className="h-4 w-4" />
+            <span className="flex-1">@dabhiram13</span>
+            <ArrowUpRightIcon className="h-3.5 w-3.5 text-zinc-400" />
+          </a>
+          <a
+            href={`${link}?tab=repositories`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-zinc-500 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+          >
+            <span className="w-4" />
+            <span className="flex-1">Repositories</span>
+            <ArrowUpRightIcon className="h-3.5 w-3.5 text-zinc-400" />
+          </a>
+        </div>
+      </PopoverContent>
+    </PopoverRoot>
+  )
+}
+
 export function Nav() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
-  const { enabled, toggle, playClick } = useInterfaceSound()
+  const { enabled, toggle } = useInterfaceSound()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
@@ -46,7 +91,6 @@ export function Nav() {
               key={link.href}
               href={link.href}
               title={link.label}
-              onClick={playClick}
               className={cn(
                 'relative rounded-md px-2 py-1 font-medium transition-colors duration-150 sm:px-2.5',
                 active
@@ -68,25 +112,13 @@ export function Nav() {
 
         <span className="mx-1.5 h-4 w-px bg-[var(--line)]" />
 
-        {github && (
-          <a
-            href={github.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="GitHub"
-            onClick={playClick}
-            className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
-          >
-            <GitHubIcon className="h-4 w-4" />
-          </a>
-        )}
+        {github && <GitHubPopover link={github.link} />}
         {linkedin && (
           <a
             href={linkedin.link}
             target="_blank"
             rel="noopener noreferrer"
             title="LinkedIn"
-            onClick={playClick}
             className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
           >
             <LinkedInIcon className="h-4 w-4" />
@@ -109,10 +141,7 @@ export function Nav() {
         {mounted && (
           <button
             type="button"
-            onClick={() => {
-              playClick()
-              setTheme(theme === 'dark' ? 'light' : 'dark')
-            }}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             title="Toggle theme"
             className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
           >

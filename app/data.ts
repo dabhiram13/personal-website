@@ -16,6 +16,7 @@ export const PERSONAL = {
   education: 'CS graduate', // short label for the info list
   educationUrl: '',
   bio: 'Full-stack developer building products and learning new things. I like shipping user-first tools and writing about how I build them.',
+  openToWork: true, // shows an "Open to work" live badge under the tagline
   avatars: ['/sridurga.png'], // add more photos to cycle on click
 }
 

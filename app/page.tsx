@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowRightIcon,
-  ArrowUpRightIcon,
   BriefcaseIcon,
   Code2Icon,
   GraduationCapIcon,
@@ -11,6 +10,9 @@ import {
 } from 'lucide-react'
 import { Avatar, HeroHeading } from '@/components/site/hero'
 import { Divider, Section, SectionHeading } from '@/components/site/section'
+import { ExpandableWord } from '@/components/site/expandable-word'
+import { HaloLink } from '@/components/site/halo-link'
+import { CopyButton } from '@/components/ui/copy-button'
 import { ExperienceItem } from '@/components/site/experience'
 import { ProjectCard } from '@/components/site/project-card'
 import { ContributionsGraph } from '@/components/site/contributions'
@@ -48,7 +50,12 @@ function Hero() {
       </div>
 
       <p className="mt-7 max-w-lg text-[15px] leading-relaxed text-[var(--text-soft)]">
-        {PERSONAL.bio}{' '}
+        Full-stack developer with strong{' '}
+        <ExpandableWord word="product and design">
+          Add a line about your product/design approach here - e.g. you care
+          about how things feel to use as much as how they are built.
+        </ExpandableWord>{' '}
+        skills. {PERSONAL.bio}{' '}
         Shipping @{' '}
         <a
           href={PERSONAL.companyUrl}
@@ -98,6 +105,12 @@ function Hero() {
           <a href={`mailto:${PERSONAL.email}`} className="link-sweep">
             {PERSONAL.email}
           </a>
+          <CopyButton
+            value={PERSONAL.email}
+            variant="ghost"
+            size="icon"
+            className="!h-5 !w-5 text-[var(--text-faint)] hover:text-[var(--text)]"
+          />
         </InfoRow>
         {PERSONAL.leetcode && (
           <InfoRow icon={<Code2Icon className="h-3.5 w-3.5" />}>
@@ -127,13 +140,9 @@ function Hero() {
         </InfoRow>
       </ul>
 
-      <Link
-        href="/about"
-        className="mt-6 inline-flex items-center gap-1.5 rounded-full border border-[var(--line)] bg-[var(--card)] px-3.5 py-1.5 text-[13px] font-medium text-[var(--text)] transition-colors hover:bg-[var(--card-hover)]"
-      >
+      <HaloLink href="/about" className="mt-6">
         More about me
-        <ArrowRightIcon className="h-3.5 w-3.5" />
-      </Link>
+      </HaloLink>
     </Section>
   )
 }

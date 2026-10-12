@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { PERSONAL } from '@/app/data'
 import { VerifiedBadge } from './icons'
 import { useInterfaceSound } from './sound'
+import { HaloBadge } from '@/components/ui/halo-badge'
 
 function ClickMeHint() {
   return (
@@ -102,6 +103,11 @@ export function HeroHeading() {
         {PERSONAL.age ? `${PERSONAL.age}y/o ` : ''}
         {PERSONAL.tagline}
       </p>
+      {PERSONAL.openToWork && (
+        <HaloBadge live className="mt-2" variant="secondary">
+          Open to work
+        </HaloBadge>
+      )}
     </div>
   )
 }
