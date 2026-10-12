@@ -13,6 +13,7 @@ import { ExperienceItem } from '@/components/site/experience'
 import { ProjectCard } from '@/components/site/project-card'
 import { ContributionsGraph } from '@/components/site/contributions'
 import { ContactCard } from '@/components/site/contact-card'
+import { SkillBadge } from '@/components/site/skill-badge'
 import { EDUCATION, EXPERIENCE, PERSONAL, PROJECTS, STACK } from './data'
 
 function InfoRow({
@@ -192,12 +193,7 @@ function Stack() {
       <SectionHeading>Stack</SectionHeading>
       <div className="flex flex-wrap gap-1.5">
         {STACK.map((item) => (
-          <span
-            key={item}
-            className="inline-flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--background)] px-2.5 py-1 text-[11px] text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)]"
-          >
-            {item}
-          </span>
+          <SkillBadge key={item} name={item} />
         ))}
       </div>
     </Section>

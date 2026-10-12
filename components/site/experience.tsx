@@ -4,6 +4,31 @@ import { AnimatePresence, motion } from 'motion/react'
 import { ChevronDownIcon, ArrowUpRightIcon } from 'lucide-react'
 import { useState } from 'react'
 import type { Experience } from '@/app/data'
+import { SkillBadge } from '@/components/site/skill-badge'
+
+function highlightedBullet(text: string, highlights: Experience['highlights']) {
+  const terms = (highlights ?? [])
+    .filter((term) => text.includes(term))
+    .sort((a, b) => b.length - a.length)
+  if (!terms.length) return text
+
+  const escapeRegex = (value: string) =>
+    value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const matches = new RegExp(`(${terms.map(escapeRegex).join('|')})`, 'g')
+
+  return text.split(matches).map((part, index) => {
+    if (!terms.includes(part)) return part
+    return (
+      <strong
+        key={`${part}-${index}`}
+        data-sfx-hover="whisper"
+        className="font-semibold text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
+      >
+        {part}
+      </strong>
+    )
+  })
+}
 
 export function ExperienceItem({
   job,
@@ -73,18 +98,13 @@ export function ExperienceItem({
                 {job.bullets.map((bullet) => (
                   <li key={bullet} className="flex gap-2">
                     <span className="mt-[7px] size-1 shrink-0 rounded-full bg-[var(--muted-foreground)]/60" />
-                    <span>{bullet}</span>
+                    <span>{highlightedBullet(bullet, job.highlights)}</span>
                   </li>
                 ))}
               </ul>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {job.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-md border border-[var(--border)] bg-[var(--background)] px-2 py-0.5 text-[10px] text-[var(--muted-foreground)]"
-                  >
-                    {tech}
-                  </span>
+                  <SkillBadge key={tech} name={tech} />
                 ))}
               </div>
               {job.link && (

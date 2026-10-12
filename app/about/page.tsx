@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowUpRightIcon } from 'lucide-react'
 import { Section, SectionHeading, Divider } from '@/components/site/section'
+import { SkillBadge } from '@/components/site/skill-badge'
 import { PERSONAL, CERTIFICATIONS, SOCIAL_LINKS } from '../data'
 
 export const metadata: Metadata = { title: 'About' }
@@ -97,12 +98,7 @@ export default function About() {
               </h3>
               <div className="flex flex-wrap gap-1.5">
                 {group.items.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full border border-[var(--border)] bg-[var(--background)] px-2.5 py-1 text-[11px] text-[var(--muted-foreground)]"
-                  >
-                    {skill}
-                  </span>
+                  <SkillBadge key={skill} name={skill} />
                 ))}
               </div>
             </div>

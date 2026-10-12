@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import Lenis from '@studio-freight/lenis'
 import { useEffect, useRef } from 'react'
@@ -10,7 +10,7 @@ export const useLenis = () => {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.08,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       touchMultiplier: 2,
       smoothWheel: true,
@@ -19,14 +19,16 @@ export const useLenis = () => {
     })
     lenisRef.current = lenis
 
+    let frame: number
     function raf(time: number) {
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      frame = requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf)
+    frame = requestAnimationFrame(raf)
 
     return () => {
+      cancelAnimationFrame(frame)
       lenisRef.current = null
       lenis.destroy()
     }

@@ -49,7 +49,7 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           storageKey="theme"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
         >
           <DesignProvider>

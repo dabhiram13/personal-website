@@ -30,6 +30,7 @@ export type Experience = {
   linkLabel?: string
   bullets: string[]
   tech: string[]
+  highlights?: string[]
 }
 
 export const EXPERIENCE: Experience[] = [
@@ -49,6 +50,13 @@ export const EXPERIENCE: Experience[] = [
       'Designed a two-stage pick-event detection system that over-generates candidates, then filters them to localize pick attempts in video. Recycling cells run about 60 picks per minute across 50+ material classes.',
       'Building the evaluation layer before making accuracy claims: a human ground-truth protocol and an evaluation harness that scores event detection precision, recall, and F1 against real annotations.',
     ],
+    highlights: [
+      'Audit Agent',
+      'vision-language reasoning',
+      'two-stage pick-event detection',
+      'human ground-truth protocol',
+      'precision, recall, and F1',
+    ],
     tech: ['Python', 'OpenCV', 'PyTorch', 'Vision-language models'],
   },
   {
@@ -63,6 +71,11 @@ export const EXPERIENCE: Experience[] = [
     bullets: [
       'Built reusable GoHighLevel prototypes for lead capture, CRM pipelines, automated follow-up, and appointment-booking workflows.',
       'Connected forms, websites, calendars, SMS, email, voicemail, and Messenger into end-to-end demos, with setup steps documented.',
+    ],
+    highlights: [
+      'GoHighLevel',
+      'automated follow-up',
+      'appointment-booking workflows',
     ],
     tech: ['GoHighLevel', 'CRM', 'Workflow automation'],
   },
