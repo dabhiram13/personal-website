@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   BriefcaseBusinessIcon,
@@ -146,8 +147,15 @@ function EducationSection() {
             key={item.school}
             className="flex items-center gap-3 rounded-xl border border-[var(--border)]/70 bg-[var(--card)]/50 px-3 py-3"
           >
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] text-[9px] font-semibold text-[var(--muted-foreground)]">
-              {item.mark}
+            <span className="flex h-8 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[var(--border)] bg-white p-1">
+              <Image
+                src={item.logo}
+                alt={`${item.school} logo`}
+                width={56}
+                height={32}
+                unoptimized
+                className="max-h-full max-w-full object-contain"
+              />
             </span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-sm font-semibold">
