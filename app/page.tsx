@@ -1,876 +1,278 @@
-'use client'
-import { motion, AnimatePresence } from 'motion/react'
-import { XIcon } from 'lucide-react'
-import { Spotlight } from '@/components/ui/spotlight'
-import { Magnetic } from '@/components/ui/magnetic'
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogClose,
-  MorphingDialogContainer,
-} from '@/components/ui/morphing-dialog'
+import Image from 'next/image'
 import Link from 'next/link'
-import { AnimatedBackground } from '@/components/ui/animated-background'
 import {
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  BriefcaseIcon,
+  Code2Icon,
+  GraduationCapIcon,
+  MailIcon,
+  MapPinIcon,
+} from 'lucide-react'
+import { Avatar, HeroHeading } from '@/components/site/hero'
+import { Divider, Section, SectionHeading } from '@/components/site/section'
+import { ExperienceItem } from '@/components/site/experience'
+import { ProjectCard } from '@/components/site/project-card'
+import { ContributionsGraph } from '@/components/site/contributions'
+import { ContactCard } from '@/components/site/contact-card'
+import {
+  CONTACT,
+  EDUCATION,
+  EXPERIENCE,
+  PERSONAL,
   PROJECTS,
-  WORK_EXPERIENCE,
-  BLOG_POSTS,
-  EMAIL,
-  SOCIAL_LINKS,
-  DESIGNS,
-  OPEN_SOURCE_CONTRIBUTIONS,
+  STACK,
 } from './data'
-import IosShareIcon from '@mui/icons-material/IosShare';
-import LaunchIcon from '@mui/icons-material/Launch';
-import { Modals } from '@/components/ui/five'
-import { useRouter } from 'next/navigation'
-import { useState, useEffect, useRef } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
 
-const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-}
-
-const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-}
-
-const TRANSITION_SECTION = {
-  duration: 0.3,
-}
-
-type ProjectVideoProps = {
-  src: string
-}
-
-function ProjectVideo({ src }: any) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isVideoReady, setIsVideoReady] = useState(false)
-  const [playbackRate, setPlaybackRate] = useState(1.0)
-  const previewVideoRef = useRef<HTMLVideoElement>(null)
-  const modalVideoRef = useRef<HTMLVideoElement>(null)
-  const targetDuration = 10 // Target duration in seconds
-  
-  const calculatePlaybackRate = (duration: number) => {
-    // Calculate playback rate to complete video in targetDuration seconds
-    // Formula: playbackRate = videoDuration / targetDuration
-    return duration / targetDuration
-  }
-  
-  useEffect(() => {
-    const minLoadingTimeout = setTimeout(() => {
-      if (isVideoReady) {
-        setIsLoading(false)
-      }
-    }, 1000)
-
-    return () => clearTimeout(minLoadingTimeout)
-  }, [isVideoReady])
-
-  useEffect(() => {
-    // Set playback speed for preview video
-    if (previewVideoRef.current) {
-      previewVideoRef.current.playbackRate = playbackRate
-    }
-    // Set playback speed for modal video
-    if (modalVideoRef.current) {
-      modalVideoRef.current.playbackRate = playbackRate
-    }
-  }, [playbackRate, isVideoReady])
-
-  return (
-    <MorphingDialog
-      transition={{
-        type: 'spring',
-        bounce: 0,
-        duration: 0.3,
-      }}
-    >
-      <MorphingDialogTrigger>
-        <div className="relative aspect-video w-full">
-          <AnimatePresence mode="wait">
-            {isLoading && (
-              <motion.div
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 z-10"
-              >
-                <Skeleton className="h-full w-full" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isLoading ? 0 : 1 }}
-            transition={{ duration: 0.4 }}
-          >
-            <video
-              ref={previewVideoRef}
-              src={src}
-              autoPlay
-              loop
-              muted
-              onLoadedMetadata={(e) => {
-                const duration = e.currentTarget.duration
-                const calculatedRate = calculatePlaybackRate(duration)
-                setPlaybackRate(calculatedRate)
-              }}
-              onLoadedData={(e) => {
-                setIsVideoReady(true)
-                e.currentTarget.playbackRate = playbackRate
-              }}
-              onPlay={(e) => {
-                e.currentTarget.playbackRate = playbackRate
-              }}
-              className="aspect-video w-full cursor-zoom-in rounded-xl"
-            />
-          </motion.div>
-        </div>
-      </MorphingDialogTrigger>
-      <MorphingDialogContainer>
-        <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-          <video
-            ref={modalVideoRef}
-            src={src}
-            autoPlay
-            loop
-            muted
-            onLoadedMetadata={(e) => {
-              const duration = e.currentTarget.duration
-              const calculatedRate = calculatePlaybackRate(duration)
-              setPlaybackRate(calculatedRate)
-            }}
-            onLoadedData={(e) => {
-              e.currentTarget.playbackRate = playbackRate
-            }}
-            onPlay={(e) => {
-              e.currentTarget.playbackRate = playbackRate
-            }}
-            className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
-          />
-        </MorphingDialogContent>
-        <MorphingDialogClose
-          className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1"
-          variants={{
-            initial: { opacity: 0 },
-            animate: {
-              opacity: 1,
-              transition: { delay: 0.3, duration: 0.1 },
-            },
-            exit: { opacity: 0, transition: { duration: 0 } },
-          }}
-        >
-          <XIcon className="h-5 w-5 text-zinc-500" />
-        </MorphingDialogClose>
-      </MorphingDialogContainer>
-    </MorphingDialog>
-  )
-}
-
-function ProjectImage({ src }: any) {
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-  const img = new Image()
-  img.src = src
-  img.onload = () => setIsLoading(false)
-}, [src])
-
-  return (
-    <MorphingDialog
-      transition={{
-        type: 'spring',
-        bounce: 0,
-        duration: 0.3,
-      }}
-    >
-      <MorphingDialogTrigger>
-        <div className="relative aspect-video w-full">
-    
-   <motion.img
-  src={src}
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.4 }}
-  className="aspect-video w-full rounded-xl object-contain bg-black"
-/>
-        </div>
-      </MorphingDialogTrigger>
-      <MorphingDialogContainer>
-        <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-          <img
-            src={src}
-            onLoad={() => setIsLoading(false)}
-           className="aspect-video w-full rounded-xl object-contain bg-black"
-          />
-        </MorphingDialogContent>
-        <MorphingDialogClose
-          className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1"
-          variants={{
-            initial: { opacity: 0 },
-            animate: {
-              opacity: 1,
-              transition: { delay: 0.3, duration: 0.1 },
-            },
-            exit: { opacity: 0, transition: { duration: 0 } },
-          }}
-        >
-          <XIcon className="h-5 w-5 text-zinc-500" />
-        </MorphingDialogClose>
-      </MorphingDialogContainer>
-    </MorphingDialog>
-  )
-}
-
-function MagneticSocialLink({
+function InfoRow({
+  icon,
   children,
-  link,
 }: {
+  icon: React.ReactNode
   children: React.ReactNode
-  link: string
 }) {
   return (
-    <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
-      <a
-        href={link}
-        className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
-      >
-        {children}
-        <svg
-          width="15"
-          height="15"
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-3 w-3"
-        >
-          <path
-            d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-            fill="currentColor"
-            fillRule="evenodd"
-            clipRule="evenodd"
-          ></path>
-        </svg>
-      </a>
-    </Magnetic>
+    <li className="flex items-center gap-2.5 text-[13px] text-[var(--text-soft)]">
+      <span className="text-[var(--text-faint)]">{icon}</span>
+      {children}
+    </li>
   )
 }
 
-type GitHubContributionsResponse = {
-  total: {
-    lastYear: number
-  }
-  contributions: Array<{
-    date: string
-    count: number
-    level: number
-  }>
-}
-
-function GitHubContributionsGraph({ username }: { username: string }) {
-  const [data, setData] = useState<GitHubContributionsResponse | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    const fetchContributions = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(
-          `https://github-contributions-api.jogruber.de/v4/${username}?y=last`
-          
-        )
-        if (!response.ok) throw new Error('Failed to fetch contributions')
-        const json = await response.json()
-        setData(json)
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load')
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchContributions()
-  }, [username])
-
-  if (loading) {
-    return (
-      <div className="relative rounded-2xl bg-zinc-50/40 p-4 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50 ">
-        <h3 className="mb-4 text-lg font-medium">GitHub Contributions</h3>
-        <div className="flex items-center gap-2 mb-4">
-          <a
-            href={`https://github.com/${username}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-          >
-            @{username}
-            <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-          </a>
-        </div>
-        <div className="grid grid-cols-53 gap-1">
-          {Array.from({ length: 371 }).map((_, i) => (
-            <div
-              key={i}
-              className="aspect-square w-full rounded bg-zinc-200 dark:bg-zinc-800 animate-pulse"
-            />
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-  if (error || !data) {
-    return null
-  }
-
-  const contributions = data.contributions
-
-  // Filter contributions from March 1, 2025 to current date
-  const march2025 = new Date('2025-02-02')
-  const today = new Date()
-  today.setHours(23, 59, 59, 999) // End of today
-
-  const filteredContributions = contributions.filter((contrib) => {
-    const contribDate = new Date(contrib.date)
-    return contribDate >= march2025 && contribDate <= today
-  })
-
-  // Create a map of date to contribution for quick lookup
-  const contribMap = new Map<string, { date: string; count: number; level: number }>()
-  filteredContributions.forEach((contrib) => {
-    contribMap.set(contrib.date, contrib)
-  })
-
-  // Set date range to March 1, 2025 to today
-  const firstDate = new Date(march2025)
-  const lastDate = new Date(today)
-
-  // Calculate the first Sunday (GitHub starts weeks on Sunday)
-  // Start from March 1, 2025
-  const firstSunday = new Date(march2025)
-  const firstDayOfWeek = firstSunday.getDay()
-  firstSunday.setDate(firstSunday.getDate() - firstDayOfWeek)
-
-  // Calculate total days and weeks from March 2025 to today
-  const totalDays = Math.ceil((lastDate.getTime() - firstSunday.getTime()) / (1000 * 60 * 60 * 24))
-  const totalWeeks = Math.ceil(totalDays / 7)
-
-  // Build weeks array (each week is a column with 7 days)
-  const weeks: Array<Array<{ date: string; count: number; level: number } | null>> = []
-
-  for (let weekIndex = 0; weekIndex < totalWeeks; weekIndex++) {
-    const week: Array<{ date: string; count: number; level: number } | null> = []
-    
-    for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
-      const currentDate = new Date(firstSunday)
-      currentDate.setDate(currentDate.getDate() + weekIndex * 7 + dayIndex)
-      
-      // Check if this date is within our range
-      const dateStr = currentDate.toISOString().split('T')[0]
-      
-      if (contribMap.has(dateStr)) {
-        week.push(contribMap.get(dateStr)!)
-      } else if (currentDate >= firstDate && currentDate <= lastDate) {
-        // Date is in range but no contributions
-        week.push({ date: dateStr, count: 0, level: 0 })
-      } else {
-        // Date is outside range (padding)
-        week.push(null)
-      }
-    }
-    
-    weeks.push(week)
-  }
-
-  const getLevelColor = (level: number, count: number) => {
-    if (count === 0) {
-      return 'bg-zinc-100 dark:bg-zinc-900'
-    }
-    const colors = [
-      'bg-emerald-100 dark:bg-emerald-900/30',
-      'bg-emerald-300 dark:bg-emerald-700/50',
-      'bg-emerald-500 dark:bg-emerald-600/70',
-      'bg-emerald-600 dark:bg-emerald-500/80',
-      'bg-emerald-700 dark:bg-emerald-400/90',
-    ]
-    return colors[Math.min(level, 4)] || colors[0]
-  }
-
-  const getMonthLabels = () => {
-    const months: Array<{ month: string; weekIndex: number }> = []
-    let lastMonth = -1
-
-    weeks.forEach((week, weekIndex) => {
-      const weekDate = week.find((d) => d !== null)
-      if (weekDate) {
-        const date = new Date(weekDate.date)
-        const month = date.getMonth()
-        if (month !== lastMonth) {
-          months.push({
-            month: date.toLocaleDateString('en-US', { month: 'short' }),
-            weekIndex,
-          })
-          lastMonth = month
-        }
-      }
-    })
-
-    return months
-  }
-
-  const monthLabels = getMonthLabels()
-
+function Hero() {
   return (
-    <div className="relative rounded-2xl bg-zinc-50/40 p-6 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium">GitHub Contributions</h3>
+    <Section className="col-frame bg-[var(--col-bg)] px-6 pb-8 pt-12 sm:px-8">
+      <div className="flex items-center">
+        <Avatar />
+        <HeroHeading />
+      </div>
+
+      <p className="mt-7 max-w-lg text-[15px] leading-relaxed text-[var(--text-soft)]">
+        {PERSONAL.bio}{' '}
+        Shipping @{' '}
         <a
-          href={`https://github.com/${username}`}
+          href={PERSONAL.companyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50 text-sm"
+          className="link-sweep inline-flex items-center gap-1 font-medium text-[var(--text)]"
         >
-          @{username}
-          <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-3 w-3 inline-block ml-1"
-          >
-            <path
-              d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-              fill="currentColor"
-              fillRule="evenodd"
-              clipRule="evenodd"
-            ></path>
-          </svg>
+          {PERSONAL.company}
         </a>
-      </div>
-
-      <div className="overflow-x-auto hide-scrollbar -mx-6 px-6 pb-3">
-        <div className="flex gap-0.5 items-end min-w-fit">
-          {/* Day labels */}
-          <div className="flex flex-col gap-0.5 pr-3 pb-2.5 pt-0.5 justify-end  left-0 z-10">
-            <div className="h-3.5"></div>
-            {['Sun', '', 'Tue', '', 'Thu', '', 'Sat'].map((day, index) => (
-              <div
-                key={index}
-                className={cn(
-                  'text-[10px] text-zinc-500 dark:text-zinc-400 h-3 flex items-center font-medium px-1.5 py-0.5 rounded-sm',
-                  day ? 'visible bg-zinc-50/80 dark:bg-zinc-950/80 backdrop-blur-sm' : 'invisible',
-                  'transition-colors duration-200'
-                )}
-                style={{ width: '28px', height: '12px' }}
-              >
-                {day}
-              </div>
+        {PERSONAL.previousCompanies.length > 0 && (
+          <>
+            , previously @{' '}
+            {PERSONAL.previousCompanies.map((c, i) => (
+              <span key={c.name}>
+                {i > 0 && ' and '}
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-sweep font-medium text-[var(--text)]"
+                >
+                  {c.name}
+                </a>
+              </span>
             ))}
-          </div>
-
-          {/* Graph */}
-          <div className="flex gap-0.5">
-            {weeks.map((week, weekIndex) => {
-              const weekDate = week.find((d) => d !== null)
-              const weekMonth = weekDate ? new Date(weekDate.date).getMonth() : -1
-              const isNewMonth = weekIndex === 0 || (() => {
-                const prevWeek = weeks[weekIndex - 1]
-                const prevWeekDate = prevWeek.find((d) => d !== null)
-                const prevMonth = prevWeekDate ? new Date(prevWeekDate.date).getMonth() : -1
-                return weekMonth !== prevMonth
-              })()
-
-              return (
-                <div key={weekIndex} className="flex flex-col gap-0.5">
-                  {/* Month label */}
-                  {isNewMonth && weekDate && (
-                    <div className="text-[10px] text-zinc-500 dark:text-zinc-400 h-3.5 mb-0.5 whitespace-nowrap font-medium">
-                      {new Date(weekDate.date).toLocaleDateString('en-US', { month: 'short' })}
-                    </div>
-                  )}
-                  {!isNewMonth && <div className="h-3.5 mb-0.5"></div>}
-
-                  {/* Contribution squares */}
-                  <div className="flex flex-col gap-0.5">
-                    {week.map((contrib, dayIndex) => {
-                      if (contrib === null) {
-                        return <div key={dayIndex} className="w-[11px] h-[11px]" />
-                      }
-
-                      return (
-                        <motion.div
-                          key={`${weekIndex}-${dayIndex}`}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{
-                            duration: 0.2,
-                            delay: (weekIndex * 7 + dayIndex) * 0.002,
-                          }}
-                          className={cn(
-                            'aspect-square w-[11px] h-[11px] rounded-[2px] transition-all duration-200',
-                            getLevelColor(contrib.level, contrib.count),
-                            contrib.count > 0 &&
-                              'hover:ring-2 hover:ring-emerald-400/50 dark:hover:ring-emerald-500/50 hover:scale-110 cursor-pointer'
-                          )}
-                          title={`${contrib.date || 'No contributions'}: ${
-                            contrib.count
-                          } contribution${contrib.count !== 1 ? 's' : ''}`}
-                        />
-                      )
-                    })}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Legend */}
-      <div className="flex items-center justify-between mt-5 pt-4 border-t border-zinc-200/50 dark:border-zinc-800/50">
-        {data.total && (
-          <div className="text-sm text-zinc-600 dark:text-zinc-400">
-            <span className="font-medium text-zinc-900 dark:text-zinc-50">
-              {data.total.lastYear.toLocaleString()}
-            </span>{' '}
-            contributions in the last year
-          </div>
+          </>
         )}
-        <div className="flex items-center gap-2.5 text-[10px] text-zinc-600 dark:text-zinc-400">
-          <span className="font-medium">Less</span>
-          <div className="flex gap-0.5">
-            {[0, 1, 2, 3, 4].map((level) => (
-              <div
-                key={level}
-                className={cn(
-                  'aspect-square w-[11px] h-[11px] rounded-[2px]',
-                  getLevelColor(level, level > 0 ? 1 : 0)
-                )}
-              />
-            ))}
-          </div>
-          <span className="font-medium">More</span>
-        </div>
-      </div>
+        .
+      </p>
 
-      
-    </div>
+      <ul className="mt-5 space-y-2">
+        <InfoRow icon={<BriefcaseIcon className="h-3.5 w-3.5" />}>
+          {PERSONAL.role} @{' '}
+          <a
+            href={PERSONAL.companyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-sweep font-medium text-[var(--text)]"
+          >
+            {PERSONAL.company}
+          </a>
+        </InfoRow>
+        <InfoRow icon={<MapPinIcon className="h-3.5 w-3.5" />}>
+          {PERSONAL.location}
+        </InfoRow>
+        <InfoRow icon={<MailIcon className="h-3.5 w-3.5" />}>
+          <a href={`mailto:${PERSONAL.email}`} className="link-sweep">
+            {PERSONAL.email}
+          </a>
+        </InfoRow>
+        {PERSONAL.leetcode && (
+          <InfoRow icon={<Code2Icon className="h-3.5 w-3.5" />}>
+            <a
+              href={PERSONAL.leetcode.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-sweep font-medium text-[var(--text)]"
+            >
+              {PERSONAL.leetcode.label}
+            </a>
+          </InfoRow>
+        )}
+        <InfoRow icon={<GraduationCapIcon className="h-3.5 w-3.5" />}>
+          {PERSONAL.educationUrl ? (
+            <a
+              href={PERSONAL.educationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-sweep font-medium text-[var(--text)]"
+            >
+              {PERSONAL.education}
+            </a>
+          ) : (
+            PERSONAL.education
+          )}
+        </InfoRow>
+      </ul>
+
+      <Link
+        href="/about"
+        className="mt-6 inline-flex items-center gap-1.5 rounded-full border border-[var(--line)] bg-[var(--card)] px-3.5 py-1.5 text-[13px] font-medium text-[var(--text)] transition-colors hover:bg-[var(--card-hover)]"
+      >
+        More about me
+        <ArrowRightIcon className="h-3.5 w-3.5" />
+      </Link>
+    </Section>
   )
 }
 
-export default function Personal() {
-  const router = useRouter()
-  const [activeTab, setActiveTab] = useState<'projects' | 'design' | 'open-source'>('projects')
+function Experience() {
+  return (
+    <Section className="col-frame bg-[var(--col-bg)] px-6 py-8 sm:px-8">
+      <SectionHeading>Experience</SectionHeading>
+      <div className="space-y-2.5">
+        {EXPERIENCE.map((job, i) => (
+          <ExperienceItem key={job.id} job={job} defaultOpen={i === 0} />
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+function EducationSection() {
+  const inner = (
+    <div className="flex items-center gap-3 rounded-xl border border-[var(--line)] bg-[var(--card)]/60 px-4 py-3 transition-colors hover:bg-[var(--card-hover)]/60">
+      {EDUCATION.logo ? (
+        <Image
+          src={EDUCATION.logo}
+          alt={EDUCATION.school}
+          width={32}
+          height={32}
+          className="h-8 w-8 rounded-lg border border-[var(--line)] object-cover"
+        />
+      ) : (
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--line)] bg-[var(--card)]">
+          <GraduationCapIcon className="h-4 w-4 text-[var(--text-soft)]" />
+        </span>
+      )}
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-semibold">{EDUCATION.school}</p>
+        <p className="truncate text-xs text-[var(--text-faint)]">
+          {EDUCATION.degree}
+        </p>
+      </div>
+      <span className="text-xs text-[var(--text-faint)]">
+        {EDUCATION.start} – {EDUCATION.end}
+      </span>
+    </div>
+  )
 
   return (
-    <motion.main
-      className="space-y-24"
-      variants={VARIANTS_CONTAINER}
-      initial="hidden"
-      animate="visible"
-    >
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <div className="flex-1">
-          <p className="text-zinc-600 dark:text-zinc-400">
-            Building products and learning new things. Links to all my socials below.
-          </p>
-        </div>
-      </motion.section>
+    <Section className="col-frame bg-[var(--col-bg)] px-6 py-8 sm:px-8">
+      <SectionHeading>Education</SectionHeading>
+      {EDUCATION.link ? (
+        <a href={EDUCATION.link} target="_blank" rel="noopener noreferrer">
+          {inner}
+        </a>
+      ) : (
+        inner
+      )}
+    </Section>
+  )
+}
 
-      {/* Removed resume download and meeting CTA per user request */}
+function Projects({ limit }: { limit?: number }) {
+  const projects = limit ? PROJECTS.slice(0, limit) : PROJECTS
+  return (
+    <Section className="col-frame bg-[var(--col-bg)] px-6 py-8 sm:px-8">
+      <SectionHeading>Projects</SectionHeading>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {projects.map((p) => (
+          <ProjectCard key={p.id} project={p} />
+        ))}
+      </div>
+      <div className="mt-6 flex justify-center">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line)] bg-[var(--card)] px-4 py-1.5 text-[13px] font-medium transition-colors hover:bg-[var(--card-hover)]"
+        >
+          View all projects
+          <ArrowRightIcon className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </Section>
+  )
+}
 
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="-mt-18"
-      >
-        <div className="flex items-center justify-start space-x-3">
-          {SOCIAL_LINKS.map((link) => (
-            <MagneticSocialLink key={link.label} link={link.link}>
-              {link.label}
-            </MagneticSocialLink>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="-mt-12"
-      >
-        <div className="flex justify-center gap-8 mb-8">
-          <button
-            onClick={() => setActiveTab('projects')}
-            className={cn(
-              "text-lg font-medium relative",
-              activeTab === 'projects' 
-                ? "text-zinc-900 dark:text-zinc-50" 
-                : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50"
-            )}
+function Stack() {
+  return (
+    <Section className="col-frame bg-[var(--col-bg)] px-6 py-8 sm:px-8">
+      <SectionHeading>Stack</SectionHeading>
+      <div className="flex flex-wrap gap-2">
+        {STACK.map((item) => (
+          <span
+            key={item.name}
+            className="inline-flex items-center gap-1.5 rounded-full border border-[var(--line)] bg-[var(--card)]/60 px-2.5 py-1 text-xs text-[var(--text-soft)] transition-colors hover:bg-[var(--card-hover)]"
           >
-            Projects
-            {activeTab === 'projects' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute -bottom-2 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-zinc-50"
-                initial={false}
+            {item.icon && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={`https://cdn.simpleicons.org/${item.icon}`}
+                alt=""
+                className="h-3.5 w-3.5 dark:brightness-90"
+                loading="lazy"
               />
             )}
-          </button>
-          <button
-            onClick={() => setActiveTab('design')}
-            className={cn(
-              "text-lg font-medium relative",
-              activeTab === 'design' 
-                ? "text-zinc-900 dark:text-zinc-50" 
-                : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50"
-            )}
-          >
-            Design
-            {activeTab === 'design' && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute -bottom-2 left-0 right-0 h-0.5 bg-zinc-900 dark:bg-zinc-50"
-                initial={false}
-              />
-            )}
-          </button>
-        </div>
+            {item.name}
+          </span>
+        ))}
+      </div>
+    </Section>
+  )
+}
 
-        <AnimatePresence mode="wait">
-          {activeTab === 'projects' && (
-            <motion.div
-              key="projects"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
-            >
-              {PROJECTS.map((project) => (
-                <motion.div
-                  key={project.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-2"
-                >
-                  <div className={cn(
-                    "relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50",
-                    project.tag && project.tag === '$5000 Grant Recipient' && 'video-container-green',
-                    project.tag && project.tag === '$3000 Grant Recipient' && 'video-container-green',
-                    project.tag && project.tag === 'Building' && 'video-container-blue'
-                  )}>
-{project.type === 'image' ? (
-  <ProjectImage src={project.image} />
-) : (
-  <ProjectVideo src={project.video} />
-)}
+function Commits() {
+  return (
+    <Section className="col-frame bg-[var(--col-bg)] px-6 py-8 sm:px-8">
+      <SectionHeading>A year in commits</SectionHeading>
+      <p className="-mt-3 mb-4 text-[13px] text-[var(--text-faint)]">
+        Proof I ship. The grey squares are me touching grass.
+      </p>
+      <ContributionsGraph username="dabhiram13" />
+    </Section>
+  )
+}
 
-                    </div>
-                  <div className="px-1">
-                    <div className="flex items-center gap-3 mb-1">
-                      <a
-                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                        href={project.link}
-                        target="_blank"
-                      >
-                        {project.name}
-                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                      </a>
-                      {project.tag && (
-                        <span className={cn(
-                          "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset cursor-pointer",
-                          project.tag === '$5000 Grant Recipient' && "bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 ring-green-600/20 dark:ring-green-500/30",
-                           project.tag === '$3000 Grant Recipient' && "bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 ring-green-600/20 dark:ring-green-500/30",
-                          project.tag === 'Building' && "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-blue-600/20 dark:ring-blue-500/30"
-                        )}>
-                          {project.tag}
-                        </span>
-                      )}
-                    </div>
-                    <p>
-                      <a
-                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50 mr-4"
-                        href={project.github}
-                        target="_blank"
-                      >
-                        Github
-                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                      </a>
-                      <a
-                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                        href={project.link}
-                        target="_blank"
-                      >
-                        View <LaunchIcon fontSize="small" />
-                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                      </a>
-                    </p>
-                    <p className="text-base text-zinc-600 dark:text-zinc-400">
-                      {project.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-
-          {activeTab === 'design' && (
-            <motion.div
-              key="designs"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
-            >
-              {DESIGNS.map((design) => (
-                <motion.div
-                  key={design.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-2"
-                >
-                  <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                    <ProjectVideo src={design.video} />
-                  </div>
-                  <div className="px-1">
-                    <div className="flex items-center gap-3 mb-1">
-                      <a
-                        className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                        href={design.link}
-                        target="_blank"
-                      >
-                        {design.name}
-                        <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                      </a>
-                      {design.tag && (
-                        <span className="inline-flex items-center rounded-full bg-purple-50 dark:bg-purple-900/30 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-300 ring-1 ring-inset ring-purple-600/20 dark:ring-purple-500/30 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white cursor-pointer">
-                          {design.tag}
-                        </span>
-                      )}
-                    </div>
-                    {/* <a
-                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                      href={design.link}
-                      target="_blank"
-                    >
-                      View <LaunchIcon fontSize="small" />
-                      <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                    </a> */}
-                    <p className="text-base text-zinc-600 dark:text-zinc-400 mt-2">
-                      {design.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <GitHubContributionsGraph username="dabhiram13" />
-      </motion.section>
-
-      {/* <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-5 text-lg font-medium">Work Experience</h3>
-        <div className="flex flex-col space-y-2">
-          {WORK_EXPERIENCE.map((job) => (
-            <a
-              className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
-              href={job.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={job.id}
-            >
-              <Spotlight
-                className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
-                size={64}
-              />
-              <div className="relative h-full w-full rounded-[15px] bg-white p-4 dark:bg-zinc-950">
-                <div className="relative flex w-full flex-row justify-between">
-                  <div>
-                    <h4 className="font-normal dark:text-zinc-100">
-                      {job.title}
-                    </h4>
-                    <p className="text-zinc-500 dark:text-zinc-400">
-                      {job.company}
-                    </p>
-                  </div>
-                  <p className="text-zinc-600 dark:text-zinc-400">
-                    {job.start} - {job.end}
-                  </p>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </motion.section> */}
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-3 text-lg font-medium">Stacks</h3>
-        <div className="flex flex-col space-y-0">
-          <AnimatedBackground
-            enableHover
-            className="h-full w-full rounded-lg bg-zinc-100 dark:bg-zinc-900/80"
-            transition={{
-              type: 'spring',
-              bounce: 0,
-              duration: 0.2,
-            }}
-          >
-            {BLOG_POSTS.map((post) => (
-              <Link
-                key={post.uid}
-                className="-mx-3 rounded-xl px-3 py-3"
-                href={post.link}
-                data-id={post.uid}
-              >
-                <div className="flex flex-col space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h4 className="font-normal dark:text-zinc-100">
-                      {post.title}
-                    </h4>
-                    {post.icon && <post.icon className="text-zinc-500" />}
-                  </div>
-                  <p className="text-zinc-500 dark:text-zinc-400">
-                    {post.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </AnimatedBackground>
-        </div>
-      </motion.section>
-    </motion.main>
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <Divider />
+      <Experience />
+      <Divider />
+      <EducationSection />
+      <Divider />
+      <Projects limit={2} />
+      <Divider />
+      <Stack />
+      <Divider />
+      <Commits />
+      <Divider />
+      <Section className="col-frame bg-[var(--col-bg)] px-6 py-8 sm:px-8">
+        <ContactCard />
+      </Section>
+    </>
   )
 }
