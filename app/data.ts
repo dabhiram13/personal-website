@@ -84,7 +84,7 @@ export const EXPERIENCE: Experience[] = [
 
 export type Education = {
   school: string
-  mark: string
+  logo: string
   degree: string
   date: string
   location: string
@@ -93,14 +93,14 @@ export type Education = {
 export const EDUCATION: Education[] = [
   {
     school: 'Southeast Missouri State University',
-    mark: 'SEMO',
+    logo: '/education-logos/semo-primary.png',
     degree: 'M.S. in Applied Computer Science · GPA 3.6 / 4.0',
     date: 'May 2025',
     location: 'Cape Girardeau, Missouri',
   },
   {
     school: 'Vel Tech Rangarajan Dr. Sagunthala R&D Institute',
-    mark: 'VT',
+    logo: '/education-logos/veltech-primary.png',
     degree: 'B.Tech in Computer Science · GPA 3.5 / 4.0',
     date: 'May 2023',
     location: 'Chennai, India',
