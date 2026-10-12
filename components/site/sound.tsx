@@ -37,6 +37,15 @@ export function InterfaceSoundProvider({
 }) {
   const [enabled, setEnabled] = useState(true)
   const ctxRef = useRef<AudioContext | null>(null)
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem('interface-sound')
+      if (stored !== null) setEnabled(stored === 'true')
+    } catch {
+      // storage unavailable
+    }
+  }, [])
   const lastHoverRef = useRef<{ el: EventTarget | null; t: number }>({
     el: null,
     t: 0,
@@ -92,7 +101,16 @@ export function InterfaceSoundProvider({
     if (enabled) blip(3400, 2800, 0.035, 0.012)
   }, [enabled, blip])
 
-  const toggle = useCallback(() => setEnabled((v) => !v), [])
+  const toggle = useCallback(() => {
+    setEnabled((v) => {
+      try {
+        window.localStorage.setItem('interface-sound', String(!v))
+      } catch {
+        // storage unavailable
+      }
+      return !v
+    })
+  }, [])
 
   // Global delegation: soft tick on hover over interactive elements,
   // click sound on activation. Per-element cooldown keeps it subtle.

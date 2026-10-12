@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { HaloButton } from '@/components/ui/halo-button'
 import {
@@ -15,12 +15,29 @@ export function GuestbookForm() {
   const [entries, setEntries] = useState<{ name: string; message: string }[]>([])
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem('guestbook-entries')
+      if (stored) setEntries(JSON.parse(stored))
+    } catch {
+      // storage unavailable
+    }
+  }, [])
+
   const submit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!name.trim() || !message.trim()) return
     setLoading(true)
     setTimeout(() => {
-      setEntries((prev) => [{ name: name.trim(), message: message.trim() }, ...prev])
+      setEntries((prev) => {
+        const next = [{ name: name.trim(), message: message.trim() }, ...prev]
+        try {
+          window.localStorage.setItem('guestbook-entries', JSON.stringify(next))
+        } catch {
+          // storage unavailable
+        }
+        return next
+      })
       setName('')
       setMessage('')
       setLoading(false)
@@ -29,7 +46,7 @@ export function GuestbookForm() {
 
   return (
     <div className="mt-6 max-w-md">
-      <Expandable expandDirection="vertical" expanded>
+      <Expandable expandDirection="vertical">
         <ExpandableTrigger className="w-full rounded-xl border border-[var(--line)] bg-[var(--card)] px-4 py-3 text-left text-sm font-medium text-[var(--text)] transition-colors hover:bg-[var(--card-hover)]">
           Leave a note
         </ExpandableTrigger>

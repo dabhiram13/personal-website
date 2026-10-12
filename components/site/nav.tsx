@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'motion/react'
 import {
-  ArrowUpRightIcon,
   MoonIcon,
   SunIcon,
   Volume2Icon,
@@ -13,11 +12,6 @@ import {
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
-import {
-  PopoverContent,
-  PopoverRoot,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { GitHubIcon, LinkedInIcon } from './icons'
 import { useInterfaceSound } from './sound'
 import { SOCIAL_LINKS } from '@/app/data'
@@ -29,40 +23,6 @@ const NAV_LINKS = [
   { label: 'Blog', href: '/blog' },
   { label: 'Guestbook', href: '/guestbook' },
 ]
-
-function GitHubPopover({ link }: { link: string }) {
-  return (
-    <PopoverRoot>
-      <PopoverTrigger className="!h-auto !border-0 !bg-transparent !p-1.5 !text-[var(--text-faint)] transition-colors hover:!text-[var(--text)]">
-        <GitHubIcon className="h-4 w-4" />
-      </PopoverTrigger>
-      <PopoverContent className="!w-56">
-        <div className="p-1">
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-zinc-800 transition-colors hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-800"
-          >
-            <GitHubIcon className="h-4 w-4" />
-            <span className="flex-1">@dabhiram13</span>
-            <ArrowUpRightIcon className="h-3.5 w-3.5 text-zinc-400" />
-          </a>
-          <a
-            href={`${link}?tab=repositories`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-zinc-500 transition-colors hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
-          >
-            <span className="w-4" />
-            <span className="flex-1">Repositories</span>
-            <ArrowUpRightIcon className="h-3.5 w-3.5 text-zinc-400" />
-          </a>
-        </div>
-      </PopoverContent>
-    </PopoverRoot>
-  )
-}
 
 export function Nav() {
   const pathname = usePathname()
@@ -112,7 +72,17 @@ export function Nav() {
 
         <span className="mx-1.5 h-4 w-px bg-[var(--line)]" />
 
-        {github && <GitHubPopover link={github.link} />}
+        {github && (
+          <a
+            href={github.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="GitHub"
+            className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
+          >
+            <GitHubIcon className="h-4 w-4" />
+          </a>
+        )}
         {linkedin && (
           <a
             href={linkedin.link}

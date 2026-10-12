@@ -1,9 +1,13 @@
 "use client"
 
 import Lenis from '@studio-freight/lenis'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 
 export const useLenis = () => {
+  const lenisRef = useRef<Lenis | null>(null)
+  const pathname = usePathname()
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -13,6 +17,7 @@ export const useLenis = () => {
       wheelMultiplier: 1,
       orientation: 'vertical',
     })
+    lenisRef.current = lenis
 
     function raf(time: number) {
       lenis.raf(time)
@@ -22,7 +27,16 @@ export const useLenis = () => {
     requestAnimationFrame(raf)
 
     return () => {
+      lenisRef.current = null
       lenis.destroy()
     }
   }, [])
+
+  // Next.js preserves scroll across client-side nav, but Lenis holds the
+  // virtual offset — sync it to top so new pages start at scrollY 0 and
+  // whileInView reveals fire.
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true })
+    lenisRef.current?.resize()
+  }, [pathname])
 }
