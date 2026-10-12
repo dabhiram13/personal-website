@@ -14,6 +14,7 @@ import { ProjectCard } from '@/components/site/project-card'
 import { ContributionsGraph } from '@/components/site/contributions'
 import { ContactCard } from '@/components/site/contact-card'
 import { SkillBadge } from '@/components/site/skill-badge'
+import { CompanyLogo } from '@/components/site/company-logo'
 import { EDUCATION, EXPERIENCE, PERSONAL, PROJECTS, STACK } from './data'
 
 function InfoRow({
@@ -53,11 +54,14 @@ function Introduction() {
           target="_blank"
           rel="noreferrer"
           data-sfx-hover="whisper"
-          className="font-medium whitespace-nowrap text-[var(--foreground)]"
+          className="inline-flex items-center gap-1.5 font-medium whitespace-nowrap text-[var(--foreground)]"
         >
-          <span className="mr-1 inline-flex size-4 items-center justify-center rounded-sm bg-[var(--muted)] align-[-0.15em] text-[8px] font-bold text-[var(--brand)]">
-            EL
-          </span>
+          <CompanyLogo
+            src={PERSONAL.currentCompanyLogo}
+            alt=""
+            width={18}
+            height={16}
+          />
           EverestLabs AI
         </a>
         , turning recycling footage into timestamped pick-attempt audits. I care
@@ -73,8 +77,14 @@ function Introduction() {
             target="_blank"
             rel="noreferrer"
             data-sfx-hover="whisper"
-            className="font-medium text-[var(--foreground)]"
+            className="inline-flex items-center gap-1 font-medium text-[var(--foreground)]"
           >
+            <CompanyLogo
+              src={PERSONAL.currentCompanyLogo}
+              alt=""
+              width={15}
+              height={13}
+            />
             {PERSONAL.currentCompany}
           </a>
         </InfoRow>

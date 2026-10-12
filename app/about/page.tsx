@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowUpRightIcon } from 'lucide-react'
 import { Section, SectionHeading, Divider } from '@/components/site/section'
 import { SkillBadge } from '@/components/site/skill-badge'
+import { CompanyLogo } from '@/components/site/company-logo'
 import { PERSONAL, CERTIFICATIONS, SOCIAL_LINKS } from '../data'
 
 export const metadata: Metadata = { title: 'About' }
@@ -77,13 +78,45 @@ export default function About() {
         <div className="max-w-2xl space-y-3 text-sm leading-relaxed text-[var(--muted-foreground)]">
           <p>{PERSONAL.summary}</p>
           <p>
-            I&apos;m building EverestLabs&apos; Audit Agent: a computer-vision
-            and vision-language pipeline that turns recycling footage into
-            timestamped evidence about robotic pick attempts.
+            I&apos;m building{' '}
+            <a
+              href={PERSONAL.currentCompanyUrl}
+              target="_blank"
+              rel="noreferrer"
+              data-sfx-hover="whisper"
+              className="inline-flex items-center gap-1 font-medium text-[var(--foreground)] hover:text-[var(--brand)]"
+            >
+              <CompanyLogo
+                src={PERSONAL.currentCompanyLogo}
+                alt=""
+                width={17}
+                height={14}
+              />
+              EverestLabs&apos;
+            </a>{' '}
+            Audit Agent: a computer-vision and vision-language pipeline that
+            turns recycling footage into timestamped evidence about robotic pick
+            attempts.
           </p>
           <p>
-            Before that, I founded Deltron AI Labs and built CRM and workflow
-            automation prototypes for home-service businesses.
+            Before that, I founded{' '}
+            <a
+              href="https://deltronailabs.com/"
+              target="_blank"
+              rel="noreferrer"
+              data-sfx-hover="whisper"
+              className="inline-flex items-center gap-1 font-medium text-[var(--foreground)] hover:text-[var(--brand)]"
+            >
+              <CompanyLogo
+                src="/company-logos/deltron-ai-labs-symbol.png"
+                alt=""
+                width={15}
+                height={15}
+              />
+              Deltron AI Labs
+            </a>{' '}
+            and built CRM and workflow automation prototypes for home-service
+            businesses.
           </p>
         </div>
       </Section>

@@ -1,36 +1,78 @@
+import {
+  BotIcon,
+  BrainCircuitIcon,
+  ChartNoAxesCombinedIcon,
+  ContactRoundIcon,
+  DatabaseIcon,
+  EyeIcon,
+  Layers3Icon,
+  ScanSearchIcon,
+  SparklesIcon,
+  WorkflowIcon,
+  type LucideIcon,
+} from 'lucide-react'
+
 const ICONS: Record<string, string> = {
   Anthropic: 'anthropic',
   'Anthropic Claude API': 'anthropic',
   'Claude Code': 'claude',
   'Claude API': 'anthropic',
+  'Hugging Face Transformers': 'huggingface',
+  'Hugging Face': 'huggingface',
   Docker: 'docker',
   Flask: 'flask',
   GitHub: 'github',
   'Git/GitHub': 'github',
   'HTML/CSS': 'html5',
-  'Hugging Face Transformers': 'huggingface',
-  'Hugging Face': 'huggingface',
   JavaScript: 'javascript',
+  'Vanilla JavaScript': 'javascript',
   Jira: 'jira',
   LangChain: 'langchain',
+  'Node.js': 'nodedotjs',
   'Next.js': 'nextdotjs',
   NumPy: 'numpy',
+  'OpenRouter API': 'openrouter',
   OpenCV: 'opencv',
   Pandas: 'pandas',
   PyTorch: 'pytorch',
   Python: 'python',
   React: 'react',
   'scikit-learn': 'scikitlearn',
+  SciPy: 'scipy',
+  Solana: 'solana',
   Streamlit: 'streamlit',
   'Tailwind CSS': 'tailwindcss',
   TypeScript: 'typescript',
   Vercel: 'vercel',
 }
 
-const LIGHT_LOGOS = new Set(['github', 'nextdotjs', 'vercel'])
+const CONCEPT_ICONS: Record<string, LucideIcon> = {
+  Canvas: Layers3Icon,
+  ChromaDB: DatabaseIcon,
+  CRM: ContactRoundIcon,
+  'Evaluation harness design': ChartNoAxesCombinedIcon,
+  'Evaluation harnesses': ChartNoAxesCombinedIcon,
+  Groq: BrainCircuitIcon,
+  'Keypoint detection': ScanSearchIcon,
+  Motion: WorkflowIcon,
+  'OpenAI API': BotIcon,
+  'Prompt engineering': SparklesIcon,
+  RAG: Layers3Icon,
+  'Sentence-Transformers': BrainCircuitIcon,
+  SQL: DatabaseIcon,
+  'Vision-language models': EyeIcon,
+  'Workflow automation': WorkflowIcon,
+  GoHighLevel: WorkflowIcon,
+}
+
+const DARK_LOGOS = new Set(['anthropic', 'github', 'nextdotjs', 'vercel'])
 
 export function SkillBadge({ name }: { name: string }) {
   const icon = ICONS[name]
+  const ConceptIcon = CONCEPT_ICONS[name] ?? SparklesIcon
+  const iconClassName = `size-3.5 transition-transform duration-200 group-hover:scale-110 ${
+    icon && DARK_LOGOS.has(icon) ? 'dark:invert' : ''
+  }`
 
   return (
     <span
@@ -39,23 +81,20 @@ export function SkillBadge({ name }: { name: string }) {
     >
       {icon ? (
         <img
-          src={`https://cdn.simpleicons.org/${icon}`}
+          src={`/skill-icons/${icon}.svg`}
           alt=""
           aria-hidden="true"
           width="14"
           height="14"
           loading="lazy"
-          className={`size-3.5 transition-transform duration-200 group-hover:scale-110 ${
-            LIGHT_LOGOS.has(icon) ? 'dark:invert' : ''
-          }`}
+          className={iconClassName}
         />
       ) : (
-        <span
+        <ConceptIcon
           aria-hidden="true"
-          className="flex size-3.5 items-center justify-center rounded-sm bg-[var(--brand)]/10 text-[8px] font-semibold text-[var(--brand)]"
-        >
-          {name.slice(0, 1)}
-        </span>
+          className="size-3.5 shrink-0 text-[var(--brand)] transition-transform duration-200 group-hover:scale-110"
+          strokeWidth={1.8}
+        />
       )}
       {name}
     </span>

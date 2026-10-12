@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { ChevronDownIcon, ArrowUpRightIcon } from 'lucide-react'
 import { useState } from 'react'
 import type { Experience } from '@/app/data'
+import { CompanyLogo } from '@/components/site/company-logo'
 import { SkillBadge } from '@/components/site/skill-badge'
 
 function highlightedBullet(text: string, highlights: Experience['highlights']) {
@@ -51,8 +52,14 @@ export function ExperienceItem({
           className="flex min-h-[68px] w-full items-center justify-between gap-3 px-3.5 py-3.5 text-left text-sm font-medium transition-colors hover:bg-[var(--muted)]/50"
         >
           <span className="flex min-w-0 flex-1 items-center gap-3">
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] text-[10px] font-semibold text-[var(--muted-foreground)]">
-              {job.mark}
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] p-1">
+              <CompanyLogo
+                src={job.logo}
+                alt={`${job.company} logo`}
+                width={24}
+                height={24}
+                className="size-full transition-transform duration-200 group-hover:scale-105"
+              />
             </span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-sm leading-tight font-semibold">

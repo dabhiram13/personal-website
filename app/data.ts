@@ -1,7 +1,7 @@
 export const PERSONAL = {
   name: 'Abhiram',
   fullName: 'Sri Durga Abhiram Divyakolu',
-  tagline: 'Applied AI engineer',
+  tagline: 'Applied AI Engineer',
   summary:
     'Applied AI engineer focused on forward-deployed engineering, computer vision, and production AI systems.',
   email: 'dabhiram13@gmail.com',
@@ -15,13 +15,14 @@ export const PERSONAL = {
   currentRole: 'AI Engineer Intern',
   currentCompany: 'EverestLabs AI',
   currentCompanyUrl: 'https://everestlabs.ai/',
+  currentCompanyLogo: '/company-logos/everestlabs-mark.svg',
   education: 'M.S. in Applied Computer Science',
 }
 
 export type Experience = {
   id: string
   company: string
-  mark: string
+  logo: string
   title: string
   subtitle: string
   start: string
@@ -37,7 +38,7 @@ export const EXPERIENCE: Experience[] = [
   {
     id: 'everestlabs',
     company: 'EverestLabs AI',
-    mark: 'EL',
+    logo: '/company-logos/everestlabs-mark.svg',
     title: 'AI Engineer Intern',
     subtitle:
       'Computer vision & large vision models for robotic performance analysis',
@@ -62,7 +63,7 @@ export const EXPERIENCE: Experience[] = [
   {
     id: 'deltron',
     company: 'Deltron AI Labs LLC',
-    mark: 'DA',
+    logo: '/company-logos/deltron-ai-labs-symbol.png',
     title: 'Founder & Automation Developer',
     subtitle:
       'Independent CRM and workflow automation prototypes for home-service businesses',

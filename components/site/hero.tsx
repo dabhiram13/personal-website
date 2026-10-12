@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 import { PERSONAL } from '@/app/data'
+import { CompanyLogo } from './company-logo'
 import { VerifiedBadge } from './icons'
 import { useInterfaceSound } from './sound'
 
@@ -91,8 +92,26 @@ export function HeroHeading() {
         </h1>
         <VerifiedBadge className="size-4" />
       </div>
-      <p className="mt-0.5 text-sm text-[var(--muted-foreground)]">
-        {PERSONAL.tagline}
+      <p className="mt-0.5 flex flex-wrap items-center gap-1.5 text-sm text-[var(--muted-foreground)]">
+        <span>{PERSONAL.tagline}</span>
+        <span aria-hidden="true" className="font-mono text-xs">
+          @
+        </span>
+        <a
+          href={PERSONAL.currentCompanyUrl}
+          target="_blank"
+          rel="noreferrer"
+          data-sfx-hover="whisper"
+          className="inline-flex items-center gap-1.5 font-medium text-[var(--foreground)] transition-colors hover:text-[var(--brand)]"
+        >
+          <CompanyLogo
+            src={PERSONAL.currentCompanyLogo}
+            alt=""
+            width={20}
+            height={16}
+          />
+          EverestLabs
+        </a>
       </p>
     </div>
   )

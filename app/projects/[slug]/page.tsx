@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeftIcon, ArrowUpRightIcon } from 'lucide-react'
 import { Section, SectionHeading, Divider } from '@/components/site/section'
+import { SkillBadge } from '@/components/site/skill-badge'
 import { PROJECTS } from '../../data'
 
 export function generateStaticParams() {
@@ -109,12 +110,7 @@ export default async function ProjectDetails({
         <SectionHeading>Tech stack</SectionHeading>
         <div className="flex flex-wrap gap-1.5">
           {project.tech.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-[var(--border)] bg-[var(--background)] px-2.5 py-1 text-[11px] text-[var(--muted-foreground)]"
-            >
-              {tech}
-            </span>
+            <SkillBadge key={tech} name={tech} />
           ))}
         </div>
       </Section>
