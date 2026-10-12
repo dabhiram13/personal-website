@@ -2,21 +2,28 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion } from 'motion/react'
+import { useTheme } from 'next-themes'
+import { useEffect, useRef, useState } from 'react'
 import {
+  BookOpenIcon,
+  Code2Icon,
+  HouseIcon,
+  InstagramIcon,
+  MailIcon,
+  MessageCircleIcon,
+  MenuIcon,
   MoonIcon,
   SunIcon,
+  UserRoundIcon,
   Volume2Icon,
   VolumeXIcon,
+  XIcon as CloseIcon,
 } from 'lucide-react'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
-import { cn } from '@/lib/utils'
-import { GitHubIcon, LinkedInIcon } from './icons'
+import { EMAIL, PERSONAL, SOCIAL_LINKS } from '@/app/data'
+import { GitHubIcon, LinkedInIcon, XIcon } from './icons'
 import { useInterfaceSound } from './sound'
-import { SOCIAL_LINKS } from '@/app/data'
 
-const NAV_LINKS = [
+const LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
@@ -24,113 +31,311 @@ const NAV_LINKS = [
   { label: 'Guestbook', href: '/guestbook' },
 ]
 
+const NAV_ICONS: Record<string, React.ElementType> = {
+  Home: HouseIcon,
+  About: UserRoundIcon,
+  Projects: Code2Icon,
+  Blog: BookOpenIcon,
+  Guestbook: MessageCircleIcon,
+}
+
+const SOCIAL_ICONS: Record<string, React.ElementType> = {
+  github: GitHubIcon,
+  linkedin: LinkedInIcon,
+  x: XIcon,
+  instagram: InstagramIcon,
+}
+
+function GitHubMenu() {
+  const [open, setOpen] = useState(false)
+  const root = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const outside = (event: PointerEvent) => {
+      if (!root.current?.contains(event.target as Node)) setOpen(false)
+    }
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('pointerdown', outside)
+    document.addEventListener('keydown', escape)
+    return () => {
+      document.removeEventListener('pointerdown', outside)
+      document.removeEventListener('keydown', escape)
+    }
+  }, [])
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        aria-label="GitHub accounts"
+        aria-expanded={open}
+        title="GitHub"
+        data-sfx="soft"
+        onClick={() => setOpen((value) => !value)}
+        className="flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)]/80 transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+      >
+        <GitHubIcon className="size-4" />
+      </button>
+      {open && (
+        <div
+          role="dialog"
+          aria-label="GitHub account"
+          className="absolute top-full right-0 z-50 mt-2 w-60 rounded-xl border border-[var(--border)] bg-[var(--popover)] p-2 shadow-xl"
+        >
+          <p className="px-2 py-1 text-[10px] font-medium tracking-wider text-[var(--muted-foreground)] uppercase">
+            GitHub
+          </p>
+          <a
+            href={PERSONAL.github}
+            target="_blank"
+            rel="noreferrer"
+            data-sfx="tap"
+            className="flex items-center gap-2.5 rounded-lg px-2 py-2 text-[13px] transition-colors hover:bg-[var(--muted)]"
+          >
+            <GitHubIcon className="size-4 shrink-0" />
+            <span className="min-w-0 flex-1">
+              <span className="block font-medium">@dabhiram13</span>
+              <span className="block text-xs text-[var(--muted-foreground)]">
+                GitHub profile
+              </span>
+            </span>
+            <span className="rounded-full border border-[var(--border)] px-1.5 py-0.5 text-[9px] text-[var(--muted-foreground)]">
+              Profile
+            </span>
+          </a>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function MobileMenu({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false)
+  const root = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const outside = (event: PointerEvent) => {
+      if (!root.current?.contains(event.target as Node)) setOpen(false)
+    }
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('pointerdown', outside)
+    document.addEventListener('keydown', escape)
+    return () => {
+      document.removeEventListener('pointerdown', outside)
+      document.removeEventListener('keydown', escape)
+    }
+  }, [])
+
+  return (
+    <div ref={root}>
+      <button
+        type="button"
+        title="Menu"
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        aria-controls="mobile-navigation"
+        data-sfx="toggle"
+        onClick={() => setOpen((value) => !value)}
+        className={`flex size-8 items-center justify-center transition-colors ${
+          open
+            ? 'rounded-full bg-[var(--foreground)] text-[var(--background)]'
+            : 'rounded-md text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]'
+        }`}
+      >
+        {open ? (
+          <CloseIcon className="size-4" />
+        ) : (
+          <MenuIcon className="size-4" />
+        )}
+      </button>
+      {open && (
+        <div
+          id="mobile-navigation"
+          className="absolute top-16 right-6 z-50 w-[246px] rounded-2xl border border-[var(--border)] bg-[var(--popover)]/95 p-2 shadow-xl backdrop-blur-md sm:hidden"
+        >
+          <nav aria-label="Mobile navigation" className="flex flex-col">
+            {LINKS.map(({ label, href }) => {
+              const active =
+                href === '/' ? pathname === '/' : pathname.startsWith(href)
+              const Icon = NAV_ICONS[label]
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  aria-current={active ? 'page' : undefined}
+                  data-sfx="soft"
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
+                    active
+                      ? 'font-medium text-[var(--foreground)]'
+                      : 'text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]'
+                  }`}
+                >
+                  <Icon className="size-4 shrink-0" />
+                  <span>{label}</span>
+                </Link>
+              )
+            })}
+          </nav>
+          <div className="my-1.5 border-t border-[var(--border)]" />
+          <nav
+            aria-label="Social links"
+            className="flex items-center justify-between px-1 py-1"
+          >
+            {SOCIAL_LINKS.map(({ label, href, icon }) => {
+              const Icon = SOCIAL_ICONS[icon]
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  title={label}
+                  data-sfx="tap"
+                  className="flex size-8 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+                >
+                  <Icon className="size-4" />
+                </a>
+              )
+            })}
+            <a
+              href={`mailto:${EMAIL}`}
+              aria-label="Email"
+              title="Email"
+              data-sfx="tap"
+              className="flex size-8 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+            >
+              <MailIcon className="size-4" />
+            </a>
+          </nav>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function Nav() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
-  const { enabled, toggle } = useInterfaceSound()
+  const { isMuted, setMuted } = useInterfaceSound()
   const [mounted, setMounted] = useState(false)
-
   useEffect(() => setMounted(true), [])
 
-  const github = SOCIAL_LINKS.find((l) => l.icon === 'github')
-  const linkedin = SOCIAL_LINKS.find((l) => l.icon === 'linkedin')
-
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
-      className="col-frame sticky top-0 z-40 border-b border-[var(--line)] bg-[var(--col-bg)]/90 backdrop-blur-md"
-    >
-      <nav className="flex h-11 items-center justify-center gap-0.5 px-2 text-[13px] sm:gap-1">
-        {NAV_LINKS.map((link) => {
-          const active =
-            link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              title={link.label}
-              className={cn(
-                'relative rounded-md px-2 py-1 font-medium transition-colors duration-150 sm:px-2.5',
-                active
-                  ? 'text-[var(--text)]'
-                  : 'text-[var(--text-faint)] hover:text-[var(--text)]'
-              )}
-            >
-              {link.label}
-              {active && (
-                <motion.span
-                  layoutId="nav-underline"
-                  className="absolute inset-x-2 -bottom-[1px] h-[2px] rounded-full bg-blue-500"
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
-                />
-              )}
-            </Link>
-          )
-        })}
-
-        <span className="mx-1.5 h-4 w-px bg-[var(--line)]" />
-
-        {github && (
-          <a
-            href={github.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="GitHub"
-            className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
-          >
-            <GitHubIcon className="h-4 w-4" />
-          </a>
-        )}
-        {linkedin && (
-          <a
-            href={linkedin.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            title="LinkedIn"
-            className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
-          >
-            <LinkedInIcon className="h-4 w-4" />
-          </a>
-        )}
-
-        <button
-          type="button"
-          onClick={toggle}
-          title={enabled ? 'Turn sounds off' : 'Turn sounds on'}
-          className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
+    <header className="fixed inset-x-0 top-0 z-50 flex h-14 justify-center">
+      <div className="relative flex h-14 w-full max-w-3xl items-center justify-end border-b border-[var(--border)] px-3">
+        <nav
+          aria-label="Main navigation"
+          className="hidden items-center gap-1 sm:flex"
         >
-          {enabled ? (
-            <Volume2Icon className="h-4 w-4" />
-          ) : (
-            <VolumeXIcon className="h-4 w-4" />
-          )}
-        </button>
-
-        {mounted && (
+          {LINKS.map(({ label, href }) => {
+            const active =
+              href === '/' ? pathname === '/' : pathname.startsWith(href)
+            return (
+              <Link
+                key={href}
+                href={href}
+                title={label}
+                data-sfx="soft"
+                aria-current={active ? 'page' : undefined}
+                className={`flex items-center justify-center rounded-md px-3 py-1.5 text-sm transition-colors ${
+                  active
+                    ? 'font-medium text-[var(--foreground)]'
+                    : 'text-[var(--muted-foreground)] hover:bg-[var(--muted)]/70 hover:text-[var(--foreground)]'
+                }`}
+              >
+                {label}
+              </Link>
+            )
+          })}
+          <span
+            aria-hidden="true"
+            className="mx-1 h-4 w-px bg-[var(--border)]"
+          />
+          <GitHubMenu />
+          <a
+            href={PERSONAL.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            title="LinkedIn"
+            data-sfx-hover="tick"
+            className="flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+          >
+            <LinkedInIcon className="size-4" />
+          </a>
+          <span
+            aria-hidden="true"
+            className="mx-1 h-4 w-px bg-[var(--border)]"
+          />
           <button
             type="button"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            title="Toggle theme"
-            className="rounded-md p-1.5 text-[var(--text-faint)] transition-colors hover:text-[var(--text)]"
+            aria-label="Interface sounds"
+            title={isMuted ? 'Turn sounds on' : 'Turn sounds off'}
+            data-sfx="toggle"
+            onClick={() => setMuted(!isMuted)}
+            className="flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
           >
-            <motion.span
-              key={theme}
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="block"
-            >
-              {theme === 'dark' ? (
-                <SunIcon className="h-4 w-4" />
-              ) : (
-                <MoonIcon className="h-4 w-4" />
-              )}
-            </motion.span>
+            {isMuted ? (
+              <VolumeXIcon className="size-4" />
+            ) : (
+              <Volume2Icon className="size-4" />
+            )}
           </button>
-        )}
-      </nav>
-    </motion.header>
+          <button
+            type="button"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+            data-sfx="toggle"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+          >
+            {mounted &&
+              (theme === 'dark' ? (
+                <SunIcon className="size-4" />
+              ) : (
+                <MoonIcon className="size-4" />
+              ))}
+          </button>
+        </nav>
+        <div className="flex items-center gap-1 sm:hidden">
+          <button
+            type="button"
+            aria-label="Interface sounds"
+            title={isMuted ? 'Turn sounds on' : 'Turn sounds off'}
+            aria-pressed={!isMuted}
+            data-sfx="toggle"
+            onClick={() => setMuted(!isMuted)}
+            className="flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+          >
+            {isMuted ? (
+              <VolumeXIcon className="size-4" />
+            ) : (
+              <Volume2Icon className="size-4" />
+            )}
+          </button>
+          <button
+            type="button"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+            data-sfx="toggle"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-colors hover:bg-[var(--muted)] hover:text-[var(--foreground)]"
+          >
+            {mounted &&
+              (theme === 'dark' ? (
+                <SunIcon className="size-4" />
+              ) : (
+                <MoonIcon className="size-4" />
+              ))}
+          </button>
+          <MobileMenu pathname={pathname} />
+        </div>
+      </div>
+    </header>
   )
 }

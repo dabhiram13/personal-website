@@ -1,188 +1,254 @@
-// All site content lives here. Swap placeholder values with your own.
-
 export const PERSONAL = {
   name: 'Abhiram',
   fullName: 'Sri Durga Abhiram Divyakolu',
-  verified: true,
-  tagline: 'full-stack developer',
-  age: null as number | null, // e.g. 22 -> shows "22y/o"
-  role: 'Full-stack Developer',
-  company: 'Foundry', // current company / project, swap with real one
-  companyUrl: 'https://github.com/dabhiram13/foundry',
-  previousCompanies: [] as { name: string; url: string }[], // e.g. [{ name: 'Acme', url: 'https://acme.com' }]
-  location: 'India', // swap with your city
+  tagline: 'Applied AI engineer',
+  summary:
+    'Applied AI engineer focused on forward-deployed engineering, computer vision, and production AI systems.',
   email: 'dabhiram13@gmail.com',
-  leetcode: null as { label: string; url: string } | null, // e.g. { label: 'Top 12% on LeetCode', url: 'https://leetcode.com/you' }
-  education: 'CS graduate', // short label for the info list
-  educationUrl: '',
-  bio: 'Full-stack developer building products and learning new things. I like shipping user-first tools and writing about how I build them.',
-  openToWork: true, // shows an "Open to work" live badge under the tagline
-  avatars: ['/sridurga.png'], // add more photos to cycle on click
+  phone: '+1 (571) 564-6161',
+  location: 'St. Louis, Missouri',
+  github: 'https://github.com/dabhiram13',
+  linkedin: 'https://www.linkedin.com/in/sri-durga-abhiram-d-910128195/',
+  x: 'https://x.com/AIwithAbhi',
+  instagram: 'https://www.instagram.com/abhiramsrii',
+  avatar: '/sridurga.png',
+  currentRole: 'AI Engineer Intern',
+  currentCompany: 'EverestLabs AI',
+  currentCompanyUrl: 'https://everestlabs.ai/',
+  education: 'M.S. in Applied Computer Science',
 }
 
 export type Experience = {
+  id: string
   company: string
-  logo?: string // path under /public, falls back to initial letter
+  mark: string
   title: string
+  subtitle: string
   start: string
   end: string
   link?: string
   linkLabel?: string
-  bullets?: string[]
-  tech?: string[]
-  id: string
+  bullets: string[]
+  tech: string[]
 }
 
 export const EXPERIENCE: Experience[] = [
   {
-    company: 'Community',
-    title: 'Web3 Developer',
-    start: '2025',
+    id: 'everestlabs',
+    company: 'EverestLabs AI',
+    mark: 'EL',
+    title: 'AI Engineer Intern',
+    subtitle:
+      'Computer vision & large vision models for robotic performance analysis',
+    start: 'Jun 2026',
     end: 'Present',
-    link: '',
+    link: PERSONAL.currentCompanyUrl,
+    linkLabel: 'everestlabs.ai',
     bullets: [
-      'Describe what you built or shipped here',
-      'Another highlight, impact or metric worth showing',
+      'Building the Audit Agent end to end: a computer-vision pipeline that turns IP-camera footage into structured pick-event evidence, then uses vision-language reasoning to classify outcomes and miss categories.',
+      'Designed a two-stage pick-event detection system that over-generates candidates, then filters them to localize pick attempts in video. Recycling cells run about 60 picks per minute across 50+ material classes.',
+      'Building the evaluation layer before making accuracy claims: a human ground-truth protocol and an evaluation harness that scores event detection precision, recall, and F1 against real annotations.',
     ],
-    tech: ['Solana', 'TypeScript', 'Next.js'],
-    id: 'work1',
+    tech: ['Python', 'OpenCV', 'PyTorch', 'Vision-language models'],
   },
   {
-    company: 'Freelance',
-    title: 'React Native Dev',
-    start: 'Jan 2025',
-    end: 'Mar 2025',
-    bullets: [],
-    tech: ['React Native', 'Expo'],
-    id: 'work2',
-  },
-  {
-    company: 'Freelance',
-    title: 'Fullstack Developer',
-    start: '2024',
-    end: 'Present',
-    bullets: [],
-    tech: ['Next.js', 'Node.js'],
-    id: 'work3',
+    id: 'deltron',
+    company: 'Deltron AI Labs LLC',
+    mark: 'DA',
+    title: 'Founder & Automation Developer',
+    subtitle:
+      'Independent CRM and workflow automation prototypes for home-service businesses',
+    start: 'Dec 2025',
+    end: 'Apr 2026',
+    bullets: [
+      'Built reusable GoHighLevel prototypes for lead capture, CRM pipelines, automated follow-up, and appointment-booking workflows.',
+      'Connected forms, websites, calendars, SMS, email, voicemail, and Messenger into end-to-end demos, with setup steps documented.',
+    ],
+    tech: ['GoHighLevel', 'CRM', 'Workflow automation'],
   },
 ]
 
 export type Education = {
   school: string
+  mark: string
   degree: string
-  start: string
-  end: string
-  link?: string
-  logo?: string
+  date: string
+  location: string
 }
 
-export const EDUCATION: Education = {
-  school: 'Your College Name', // swap
-  degree: 'B.Tech in Computer Science', // swap
-  start: '20XX',
-  end: '20XX',
-  link: '',
-}
+export const EDUCATION: Education[] = [
+  {
+    school: 'Southeast Missouri State University',
+    mark: 'SEMO',
+    degree: 'M.S. in Applied Computer Science · GPA 3.6 / 4.0',
+    date: 'May 2025',
+    location: 'Cape Girardeau, Missouri',
+  },
+  {
+    school: 'Vel Tech Rangarajan Dr. Sagunthala R&D Institute',
+    mark: 'VT',
+    degree: 'B.Tech in Computer Science · GPA 3.5 / 4.0',
+    date: 'May 2023',
+    location: 'Chennai, India',
+  },
+]
 
 export type Project = {
-  name: string
-  description: string
-  link: string
-  github?: string
-  image?: string // preview image under /public
-  logo?: string // small icon under /public
-  tag?: string
   id: string
+  slug: string
+  name: string
+  mark: string
+  description: string
+  details: string
+  impact?: string
+  tech: string[]
+  github?: string
+  demo?: string
+  image?: string
+  tone: 'blue' | 'violet' | 'green' | 'orange' | 'slate'
+  featured?: boolean
 }
 
 export const PROJECTS: Project[] = [
   {
-    name: 'AI Prompt Playground',
-    description: 'Playground for testing and experimenting with AI prompts',
-    link: 'https://sridurga.me',
+    id: 'ecg',
+    slug: 'ecg-arrhythmia-detection',
+    name: 'ECG Arrhythmia Detection',
+    mark: 'ECG',
+    description: 'A machine-learning pipeline for classifying ECG heartbeats.',
+    details:
+      'Compared Random Forest, SVM, 1D CNN, and LSTM models on 10,634 labeled heartbeats from five MIT-BIH patient records. Random Forest reached 98.82% accuracy on the project evaluation split.',
+    impact: '98.82% accuracy',
+    tech: ['Python', 'PyTorch', 'scikit-learn', 'SciPy'],
+    github: 'https://github.com/dabhiram13/ECG-Arrhythmia-Detection-System',
+    tone: 'blue',
+    featured: true,
+  },
+  {
+    id: 'docchat',
+    slug: 'docchat',
+    name: 'DocChat',
+    mark: 'DC',
+    description: 'Question-answering over documents with grounded citations.',
+    details:
+      'Built a full retrieval-augmented generation pipeline: PDF parsing and chunking, local embeddings, vector retrieval, and answers grounded in cited source passages.',
+    tech: ['Python', 'LangChain', 'ChromaDB', 'Sentence-Transformers', 'Groq'],
+    github: 'https://github.com/dabhiram13/DocChat',
+    tone: 'violet',
+    featured: true,
+  },
+  {
+    id: 'prompt-playground',
+    slug: 'prompt-playground',
+    name: 'Prompt Playground',
+    mark: 'PP',
+    description: 'A hands-on prompt engineering teaching tool.',
+    details:
+      'Teaches a five-block prompt framework (Role, Context, Task, Format, Examples), assembles prompts live as users type, and streams responses from GPT-4o, Claude, and Gemini.',
+    tech: ['Python', 'Flask', 'OpenRouter API', 'Vanilla JavaScript'],
     github: 'https://github.com/dabhiram13/Prompt-Playground-Application',
     image: '/project1.png',
-    id: 'project1',
+    tone: 'orange',
   },
   {
+    id: 'retro-dither',
+    slug: 'retro-dither',
     name: 'Retro-Dither',
-    description: 'Dither your images into 90s retro style',
-    link: 'https://retro-dither.vercel.app/',
+    mark: 'RD',
+    description: 'Turn images into retro 90s-style dithered artwork.',
+    details:
+      'An interactive image tool for applying a retro dither treatment. This project and its original preview recording are kept from the existing portfolio.',
+    tech: ['TypeScript', 'Next.js', 'Canvas'],
     github: 'https://github.com/dabhiram13/retro-dither',
-    image: '/project1.png', // swap with a real preview image
-    id: 'project2',
+    demo: 'https://retro-dither.vercel.app/',
+    tone: 'green',
   },
   {
+    id: 'foundry',
+    slug: 'foundry',
     name: 'Foundry',
-    description: 'Connected work-and-verification framework for coding agents',
-    link: 'https://github.com/dabhiram13/foundry',
+    mark: 'F',
+    description:
+      'A connected work-and-verification framework for coding agents.',
+    details:
+      'The Foundry project from the existing portfolio. Visit the repository for its current architecture, documentation, and implementation.',
+    tech: ['TypeScript', 'Node.js'],
     github: 'https://github.com/dabhiram13/foundry',
-    image: '/project1.png', // swap with a real preview image
-    id: 'project3',
+    tone: 'slate',
   },
-]
-
-// Tech stack pills. `icon` is a simpleicons.org slug (https://simpleicons.org).
-export type StackItem = { name: string; icon?: string }
-
-export const STACK: StackItem[] = [
-  { name: 'TypeScript', icon: 'typescript' },
-  { name: 'JavaScript', icon: 'javascript' },
-  { name: 'React', icon: 'react' },
-  { name: 'Next.js', icon: 'nextdotjs' },
-  { name: 'Tailwind CSS', icon: 'tailwindcss' },
-  { name: 'Node.js', icon: 'nodedotjs' },
-  { name: 'Express', icon: 'express' },
-  { name: 'React Native', icon: 'react' },
-  { name: 'PostgreSQL', icon: 'postgresql' },
-  { name: 'MongoDB', icon: 'mongodb' },
-  { name: 'Prisma', icon: 'prisma' },
-  { name: 'Redis', icon: 'redis' },
-  { name: 'Solana', icon: 'solana' },
-  { name: 'Docker', icon: 'docker' },
-  { name: 'Vercel', icon: 'vercel' },
-  { name: 'GitHub Actions', icon: 'githubactions' },
-  { name: 'Linux', icon: 'linux' },
-]
-
-export type SocialLink = {
-  label: string
-  link: string
-  icon: 'github' | 'linkedin' | 'x' | 'youtube' | 'instagram' | 'discord' | 'calendar'
-}
-
-export const SOCIAL_LINKS: SocialLink[] = [
-  { label: 'GitHub', link: 'https://github.com/dabhiram13', icon: 'github' },
   {
-    label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/sri-durga-abhiram-divyakolu-910128195',
-    icon: 'linkedin',
+    id: 'zone',
+    slug: 'zone',
+    name: 'Zone',
+    mark: 'Z',
+    description:
+      'A Solana concept for verifiable code ownership and portfolios.',
+    details:
+      'An earlier concept from the existing site: secure code ownership on Solana, protect intellectual property, monetize repositories, and build a verifiable portfolio.',
+    tech: ['Solana', 'Motion'],
+    tone: 'violet',
   },
-  { label: 'X', link: 'https://x.com/AIwithAbhi', icon: 'x' },
-  { label: 'Instagram', link: 'https://www.instagram.com/abhiramsrii', icon: 'instagram' },
+]
+
+export const STACK = [
+  'Python',
+  'TypeScript',
+  'JavaScript',
+  'SQL',
+  'HTML/CSS',
+  'PyTorch',
+  'OpenCV',
+  'scikit-learn',
+  'NumPy',
+  'Pandas',
+  'Keypoint detection',
+  'Claude API',
+  'Claude Code',
+  'OpenAI API',
+  'Prompt engineering',
+  'RAG',
+  'Evaluation harnesses',
+  'LangChain',
+  'Hugging Face',
+  'ChromaDB',
+  'Next.js',
+  'React',
+  'Flask',
+  'Streamlit',
+  'Tailwind CSS',
+  'GoHighLevel',
+  'Vercel',
+  'GitHub',
+  'Jira',
+]
+
+export const CERTIFICATIONS = [
+  'Claude 101',
+  'AI Fluency - Foundations & Frameworks',
+  'Introduction to Claude Cowork',
 ]
 
 export const CONTACT = {
   heading: 'Building something cool?',
   subtext:
-    "I'm always up for a good idea. Tell me what you're working on and let's build something great together.",
-  primary: { label: 'Email me', link: 'mailto:dabhiram13@gmail.com' },
-  secondary: {
-    label: 'Message on LinkedIn',
-    link: 'https://www.linkedin.com/in/sri-durga-abhiram-divyakolu-910128195',
-  },
+    "I'm always interested in practical AI and computer-vision problems. Tell me what you're working on.",
+  primary: { label: 'Email me', link: `mailto:${PERSONAL.email}` },
+  secondary: { label: 'Message on LinkedIn', link: PERSONAL.linkedin },
 }
 
-export const FOOTER = {
-  tagline: 'if you came this far, say hi or something.',
-  handle: 'dabhiram13',
-  navLinks: [
-    { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-    { label: 'Projects', href: '/projects' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Guestbook', href: '/guestbook' },
-  ],
-}
+export const SOCIAL_LINKS = [
+  { label: 'GitHub', href: PERSONAL.github, icon: 'github' },
+  { label: 'LinkedIn', href: PERSONAL.linkedin, icon: 'linkedin' },
+  { label: 'X', href: PERSONAL.x, icon: 'x' },
+  { label: 'Instagram', href: PERSONAL.instagram, icon: 'instagram' },
+]
+
+export const FOOTER_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Experience', href: '/#experience' },
+]
 
 export const EMAIL = PERSONAL.email

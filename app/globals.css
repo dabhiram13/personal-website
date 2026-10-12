@@ -1,101 +1,91 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
-@plugin '@tailwindcss/typography';
+@import 'tw-animate-css';
 @custom-variant dark (&:is(.dark *));
 
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-stone-200, currentColor);
-  }
-}
-
 @theme {
-  --color-cream: #f6f4ef;
-  --color-ink: #1c1917;
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-space: var(--font-space-grotesk), var(--font-geist), sans-serif;
 }
 
 :root {
-  --page-bg: #f6f4ef;
-  --col-bg: #fbfaf7;
-  --line: #e7e3da;
-  --hatch: #efece4;
-  --text: #1c1917;
-  --text-soft: #57534e;
-  --text-faint: #8a857c;
-  --card: #f1efe9;
-  --card-hover: #e9e6de;
+  color-scheme: light;
+  --background: #ffffff;
+  --canvas: lab(97.1205% 0.135809 1.90171);
+  --foreground: #070707;
+  --muted: #f4f4f4;
+  --muted-foreground: #777777;
+  --border: #e8e8e8;
+  --card: #ffffff;
+  --card-hover: #f8f8f8;
+  --popover: #ffffff;
+  --brand: #3b82f6;
+  --ring: #777777;
 }
 
 .dark {
-  --page-bg: #0b0b0a;
-  --col-bg: #131312;
-  --line: #262624;
-  --hatch: #1b1b1a;
-  --text: #f0efec;
-  --text-soft: #a8a49d;
-  --text-faint: #6f6c66;
-  --card: #1d1d1b;
-  --card-hover: #262624;
+  color-scheme: dark;
+  --background: lab(5.26802% 0 0);
+  --canvas: lab(4.44577% 0.0625551 0.750321);
+  --foreground: lab(98.26% 0 0);
+  --muted: lab(15.204% 0 -0.000006);
+  --muted-foreground: lab(66.128% 0 0);
+  --border: lab(100% 0 0 / 0.1);
+  --card: lab(7.78201% 0 0);
+  --card-hover: lab(11% 0 0);
+  --popover: lab(7.78201% 0 0);
+  --ring: lab(48.496% 0 0);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
-  background-color: var(--page-bg);
-  color: var(--text);
-  font-family: var(--font-sans);
+  background: var(--canvas);
+  color: var(--foreground);
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
+html[data-font='mono'] body {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 ::selection {
-  background: #dbeafe;
-  color: #1e3a8a;
-}
-.dark ::selection {
-  background: #1e3a8a;
-  color: #dbeafe;
+  background: color-mix(in oklab, var(--brand) 24%, transparent);
 }
 
-/* Diagonal hatch used on section separators and column edges */
-.hatch {
+.reference-hatch {
   background-image: repeating-linear-gradient(
-    -45deg,
-    var(--hatch) 0px,
-    var(--hatch) 1px,
-    transparent 1px,
-    transparent 6px
+    315deg,
+    color-mix(in oklab, var(--foreground) 9%, transparent) 0,
+    color-mix(in oklab, var(--foreground) 9%, transparent) 1px,
+    transparent 0,
+    transparent 50%
   );
+  background-size: 9px 9px;
 }
 
-/* Subtle underline sweep used on links */
-.link-sweep {
-  position: relative;
-}
-.link-sweep::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  height: 1px;
-  width: 100%;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s ease;
-}
-.link-sweep:hover::after {
-  transform: scaleX(1);
+.reference-edge-hatch {
+  background-image: repeating-linear-gradient(
+    315deg,
+    color-mix(in oklab, var(--border) 55%, transparent) 0,
+    color-mix(in oklab, var(--border) 55%, transparent) 1px,
+    transparent 0,
+    transparent 50%
+  );
+  background-size: 9px 9px;
 }
 
-/* Stacked borders that frame the central column */
-.col-frame {
-  border-left: 1px solid var(--line);
-  border-right: 1px solid var(--line);
+.scribble {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--brand);
+  text-underline-offset: 2px;
+}
+
+.sound-focus:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
 }

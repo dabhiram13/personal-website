@@ -1,59 +1,44 @@
-'use client'
-
-import { motion } from 'motion/react'
-import { ArrowUpRightIcon, CalendarIcon, MailIcon } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowUpRightIcon, CalendarDaysIcon, MailIcon } from 'lucide-react'
 import { CONTACT } from '@/app/data'
-import { HaloButton } from '@/components/ui/halo-button'
-import { TextureOverlay } from '@/components/ui/texture-overlay'
 
 export function ContactCard() {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[var(--line)]">
-      {/* Gradient backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sky-400 via-indigo-500 to-violet-600" />
-      <div className="hatch absolute inset-0 opacity-20" />
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"
+    <div className="relative min-h-[250px] overflow-hidden rounded-xl border border-[var(--border)]">
+      <Image
+        src="/contact-backdrop.webp"
+        alt=""
+        fill
+        sizes="720px"
+        className="object-cover"
       />
-
-      <TextureOverlay
-        texture="crosshatch"
-        className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay"
-      />
-
-      <div className="relative px-6 py-14 text-white sm:px-10 sm:py-16">
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/5" />
+      <div className="relative flex min-h-[250px] flex-col items-start justify-end px-6 py-7 text-white sm:px-7">
+        <h2 className="font-space text-2xl leading-tight font-medium tracking-tight sm:text-3xl">
           {CONTACT.heading}
         </h2>
-        <p className="mt-3 max-w-md text-sm leading-relaxed text-white/80">
+        <p className="mt-2 max-w-md text-xs leading-relaxed text-white/80 sm:text-sm">
           {CONTACT.subtext}
         </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <HaloButton
-            onClick={() => (window.location.href = CONTACT.primary.link)}
-            className="!bg-white !text-zinc-900"
+        <div className="mt-5 flex flex-wrap gap-2">
+          <a
+            href={CONTACT.primary.link}
+            data-sfx="tap"
+            className="inline-flex h-9 items-center gap-2 rounded-xl bg-white px-4 text-xs font-medium text-neutral-950 transition-transform hover:scale-[1.02]"
           >
-            <span className="inline-flex items-center gap-2">
-              {CONTACT.primary.link.startsWith('mailto:') ? (
-                <MailIcon className="h-4 w-4" />
-              ) : (
-                <CalendarIcon className="h-4 w-4" />
-              )}
-              {CONTACT.primary.label}
-            </span>
-          </HaloButton>
+            <MailIcon className="size-3.5" />
+            {CONTACT.primary.label}
+          </a>
           <a
             href={CONTACT.secondary.link}
             target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white backdrop-blur transition-colors duration-200 hover:bg-white/25"
+            rel="noreferrer"
+            data-sfx="tap"
+            className="inline-flex h-9 items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-4 text-xs font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/20"
           >
+            <CalendarDaysIcon className="size-3.5" />
             {CONTACT.secondary.label}
-            <ArrowUpRightIcon className="h-3.5 w-3.5" />
+            <ArrowUpRightIcon className="size-3" />
           </a>
         </div>
       </div>

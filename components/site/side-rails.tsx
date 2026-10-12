@@ -1,62 +1,63 @@
 'use client'
 
 import { motion } from 'motion/react'
-import { SOCIAL_LINKS, PERSONAL } from '@/app/data'
-import {
-  GitHubIcon,
-  InstagramIcon,
-  LinkedInIcon,
-  XIcon,
-  YouTubeIcon,
-} from './icons'
-import { CalendarIcon } from 'lucide-react'
+import { InstagramIcon, PhoneIcon } from 'lucide-react'
+import { PERSONAL, SOCIAL_LINKS } from '@/app/data'
+import { GitHubIcon, LinkedInIcon, XIcon } from './icons'
 
 const ICONS: Record<string, React.ElementType> = {
   github: GitHubIcon,
   linkedin: LinkedInIcon,
   x: XIcon,
-  youtube: YouTubeIcon,
   instagram: InstagramIcon,
-  calendar: CalendarIcon,
-  discord: CalendarIcon,
 }
 
 export function SideRails() {
   return (
     <>
-      {/* Left vertical social rail */}
       <motion.nav
         aria-label="Social links"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="fixed left-4 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-1 lg:flex"
+        transition={{ delay: 0.4, duration: 0.5 }}
+        className="fixed top-1/2 z-20 hidden -translate-y-1/2 flex-col items-center gap-1 xl:flex"
+        style={{ left: 'calc(50% - 636px)' }}
       >
-        {SOCIAL_LINKS.map((link) => {
-          const Icon = ICONS[link.icon]
+        {SOCIAL_LINKS.map(({ label, href, icon }) => {
+          const Icon = ICONS[icon]
           return (
             <a
-              key={link.label}
-              href={link.link}
+              key={label}
+              href={href}
               target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.label}
-              className="rounded-lg p-2 text-[var(--text-faint)] transition-all duration-200 hover:-translate-y-0.5 hover:text-[var(--text)]"
+              rel="noreferrer"
+              aria-label={label}
+              data-sfx-hover="tick"
+              className="flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)]/70 transition-[color,translate] duration-200 hover:-translate-y-0.5 hover:text-[var(--foreground)]"
             >
-              <Icon className="h-4.5 w-4.5" />
+              <Icon className="size-4" />
             </a>
           )
         })}
+        <a
+          href={`tel:${PERSONAL.phone.replace(/[^\d+]/g, '')}`}
+          aria-label="Call Abhiram"
+          data-sfx="tap"
+          className="mt-1 flex size-8 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted-foreground)]/70 transition-colors hover:text-[var(--foreground)]"
+        >
+          <PhoneIcon className="size-4" />
+        </a>
+        <span aria-hidden="true" className="h-14 w-px bg-[var(--border)]" />
       </motion.nav>
-
-      {/* Right vertical email */}
       <motion.a
         href={`mailto:${PERSONAL.email}`}
+        aria-label={`Email ${PERSONAL.email}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.7, duration: 0.5 }}
-        className="fixed right-4 top-1/2 z-30 hidden -translate-y-1/2 text-[11px] tracking-[0.2em] text-[var(--text-faint)] transition-colors hover:text-[var(--text)] lg:block"
-        style={{ writingMode: 'vertical-rl' }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+        data-sfx-hover="tick"
+        className="fixed top-1/2 z-20 hidden -translate-y-1/2 rounded-sm font-mono text-[11px] tracking-[0.18em] text-[var(--muted-foreground)]/70 lowercase transition-[color,translate] duration-200 hover:-translate-y-[calc(50%+2px)] hover:text-[var(--foreground)] xl:block"
+        style={{ right: 'calc(50% - 629px)', writingMode: 'vertical-rl' }}
       >
         {PERSONAL.email}
       </motion.a>

@@ -1,31 +1,32 @@
 import type { Metadata } from 'next'
-import { Section, SectionHeading } from '@/components/site/section'
+import Link from 'next/link'
+import { Section } from '@/components/site/section'
 
 export const metadata: Metadata = { title: 'Blog' }
 
-// Add posts here when you start writing. Each shows as a list row.
-const POSTS: { title: string; date: string; href: string }[] = []
-
 export default function Blog() {
   return (
-    <Section className="col-frame bg-[var(--col-bg)] px-6 py-10 sm:px-8">
-      <SectionHeading>Blog</SectionHeading>
-      {POSTS.length === 0 ? (
-        <p className="text-[14px] text-[var(--text-faint)]">
-          Nothing here yet. Posts are coming soon.
-        </p>
-      ) : (
-        <ul className="space-y-3">
-          {POSTS.map((post) => (
-            <li key={post.href} className="flex items-baseline justify-between">
-              <a href={post.href} className="link-sweep text-[14px]">
-                {post.title}
-              </a>
-              <span className="text-xs text-[var(--text-faint)]">{post.date}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+    <Section>
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-5 flex items-center gap-2 text-[10px] text-[var(--muted-foreground)]"
+      >
+        <Link
+          href="/"
+          data-sfx="soft"
+          className="hover:text-[var(--foreground)]"
+        >
+          Home
+        </Link>
+        <span>/</span>
+        <span>Blog</span>
+      </nav>
+      <h1 className="font-space text-2xl font-medium tracking-tight">
+        Blog<span className="text-[var(--brand)]">.</span>
+      </h1>
+      <p className="mt-2 text-xs text-[var(--muted-foreground)]">
+        Notes and write-ups will appear here.
+      </p>
     </Section>
   )
 }

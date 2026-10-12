@@ -1,81 +1,65 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { FOOTER, PERSONAL, SOCIAL_LINKS } from './data'
-
-function TimeOnPage() {
-  const [seconds, setSeconds] = useState(0)
-  useEffect(() => {
-    const start = Date.now()
-    const id = setInterval(() => {
-      setSeconds((Date.now() - start) / 1000)
-    }, 50)
-    return () => clearInterval(id)
-  }, [])
-  return (
-    <span className="tabular-nums">
-      You&apos;ve been on this page for {seconds.toFixed(2)} seconds
-    </span>
-  )
-}
+import { FOOTER_LINKS, PERSONAL, SOCIAL_LINKS } from './data'
 
 export function Footer() {
   return (
-    <footer className="col-frame border-t border-[var(--line)] bg-[var(--col-bg)]">
-      <div className="flex flex-col gap-8 px-6 py-10 sm:flex-row sm:justify-between">
+    <footer className="mt-10 mb-4">
+      <div className="flex flex-col justify-between gap-8 px-1 pb-8 sm:flex-row sm:gap-10">
         <div className="max-w-xs">
           <div className="flex items-center gap-3">
             <Image
-              src={PERSONAL.avatars[0]}
+              src={PERSONAL.avatar}
               alt={PERSONAL.name}
-              width={36}
-              height={36}
-              className="rounded-lg object-cover"
+              width={40}
+              height={40}
+              className="size-10 rounded-lg object-cover"
             />
             <div>
               <p className="text-sm font-semibold">{PERSONAL.name}</p>
-              <p className="text-xs text-[var(--text-faint)]">{PERSONAL.role}</p>
+              <p className="text-xs text-[var(--muted-foreground)]">
+                {PERSONAL.tagline}
+              </p>
             </div>
           </div>
-          <p className="mt-4 text-[13px] leading-relaxed text-[var(--text-soft)]">
-            {FOOTER.tagline}
+          <p className="mt-4 max-w-[220px] text-xs leading-relaxed text-[var(--muted-foreground)]">
+            if you came this far, say hi or something.
           </p>
         </div>
-
-        <div className="flex gap-16">
+        <div className="flex gap-14">
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--text-faint)]">
+            <p className="text-[10px] font-medium tracking-[0.18em] text-[var(--muted-foreground)] uppercase">
               Explore
             </p>
-            <ul className="mt-3 space-y-2">
-              {FOOTER.navLinks.map((link) => (
-                <li key={link.href}>
+            <ul className="mt-3 space-y-1.5">
+              {FOOTER_LINKS.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={link.href}
-                    className="link-sweep text-[13px] text-[var(--text-soft)] hover:text-[var(--text)]"
+                    href={item.href}
+                    data-sfx="soft"
+                    className="text-xs text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
                   >
-                    {link.label}
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--text-faint)]">
+            <p className="text-[10px] font-medium tracking-[0.18em] text-[var(--muted-foreground)] uppercase">
               Connect
             </p>
-            <ul className="mt-3 space-y-2">
-              {SOCIAL_LINKS.map((link) => (
-                <li key={link.label}>
+            <ul className="mt-3 space-y-1.5">
+              {SOCIAL_LINKS.map((item) => (
+                <li key={item.label}>
                   <a
-                    href={link.link}
+                    href={item.href}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-sweep text-[13px] text-[var(--text-soft)] hover:text-[var(--text)]"
+                    rel="noreferrer"
+                    data-sfx-hover="tick"
+                    className="text-xs text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)]"
                   >
-                    {link.label}
+                    {item.label}
                   </a>
                 </li>
               ))}
@@ -83,18 +67,13 @@ export function Footer() {
           </div>
         </div>
       </div>
-
-      <div className="flex items-center justify-between border-t border-[var(--line)] px-6 py-4">
-        <p className="text-xs text-[var(--text-faint)]">
+      <div className="flex items-center justify-between border-t border-[var(--border)] px-1 py-3">
+        <p className="text-[10px] text-[var(--muted-foreground)]">
           © {new Date().getFullYear()} {PERSONAL.name}. All rights reserved.
         </p>
-        <p className="text-[11px] uppercase tracking-[0.25em] text-[var(--text-faint)]">
-          {FOOTER.handle}
+        <p className="font-mono text-[9px] tracking-[0.22em] text-[var(--muted-foreground)] uppercase">
+          dabhiram13
         </p>
-      </div>
-
-      <div className="border-t border-[var(--line)] px-6 py-3 text-[11px] text-[var(--text-faint)]">
-        <TimeOnPage />
       </div>
     </footer>
   )
