@@ -7,8 +7,8 @@ import {
 } from '@/components/ui/expandable'
 
 /**
- * Inline expandable word, like the bio hover words on abhisharma.dev:
- * click the underlined word to open a small detail card.
+  * Inline expandable word used for short details in the bio.
+  * Click the underlined word to open a small detail card.
  */
 export function ExpandableWord({
   word,
