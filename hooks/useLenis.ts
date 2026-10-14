@@ -34,11 +34,23 @@ export const useLenis = () => {
     }
   }, [])
 
-  // Next.js preserves scroll across client-side nav, but Lenis holds the
-  // virtual offset — sync it to top so new pages start at scrollY 0 and
-  // whileInView reveals fire.
+  // Keep Lenis in sync with navigation without overriding section links.
   useEffect(() => {
-    lenisRef.current?.scrollTo(0, { immediate: true })
-    lenisRef.current?.resize()
+    const syncScroll = () => {
+      const target = window.location.hash
+        ? document.getElementById(window.location.hash.slice(1))
+        : null
+      lenisRef.current?.resize()
+      lenisRef.current?.scrollTo(target ?? 0, {
+        immediate: true,
+        offset: target ? -88 : 0,
+      })
+    }
+    const frame = requestAnimationFrame(syncScroll)
+    window.addEventListener('hashchange', syncScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('hashchange', syncScroll)
+    }
   }, [pathname])
 }

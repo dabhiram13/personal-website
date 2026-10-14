@@ -3,10 +3,15 @@ import Link from 'next/link'
 import { ArrowUpRightIcon } from 'lucide-react'
 import { Section, SectionHeading, Divider } from '@/components/site/section'
 import { SkillBadge } from '@/components/site/skill-badge'
-import { CompanyLogo } from '@/components/site/company-logo'
-import { PERSONAL, CERTIFICATIONS, SOCIAL_LINKS } from '../data'
+import { PhotoGallery } from '@/components/site/photo-gallery'
+import { CERTIFICATIONS, SOCIAL_LINKS } from '../data'
 
-export const metadata: Metadata = { title: 'About' }
+export const metadata: Metadata = {
+  title: 'About Sri',
+  description:
+    'Get to know Sri: an AI Engineering Intern exploring computer vision, AI agents, visual systems, and practical software.',
+  alternates: { canonical: '/about' },
+}
 
 const SKILL_GROUPS = [
   {
@@ -72,51 +77,63 @@ export default function About() {
           <span>/</span>
           <span>About</span>
         </nav>
-        <h1 className="font-space mb-3 text-2xl font-medium tracking-tight">
-          About<span className="text-[var(--brand)]">.</span>
-        </h1>
-        <div className="max-w-2xl space-y-3 text-sm leading-relaxed text-[var(--muted-foreground)]">
-          <p>{PERSONAL.summary}</p>
-          <p>
-            I&apos;m building{' '}
-            <a
-              href={PERSONAL.currentCompanyUrl}
-              target="_blank"
-              rel="noreferrer"
-              data-sfx-hover="whisper"
-              className="inline-flex items-center gap-1 font-medium text-[var(--foreground)] hover:text-[var(--brand)]"
+        <div className="max-w-xl">
+          <div>
+            <p className="mb-3 font-mono text-[10px] tracking-[0.16em] text-[var(--muted-foreground)] uppercase">
+              A little about me
+            </p>
+            <h1 className="font-space mb-5 text-3xl font-medium tracking-tight sm:text-4xl">
+              Hi, I&apos;m Sri<span className="text-[var(--brand)]">.</span>
+            </h1>
+            <p className="text-[15px] leading-7 text-[var(--muted-foreground)]">
+              I like understanding how things work, then building something with
+              that understanding. Lately, that&apos;s meant computer vision for
+              robotic systems, AI development tools, and experiments that turn
+              ideas into usable products.
+            </p>
+            <Link
+              href="/#experience"
+              className="mt-5 inline-flex items-center gap-2 text-xs font-medium hover:text-[var(--brand)]"
             >
-              <CompanyLogo
-                src={PERSONAL.currentCompanyLogo}
-                alt=""
-                width={17}
-                height={14}
-              />
-              EverestLabs&apos;
-            </a>{' '}
-            Audit Agent: a computer-vision and vision-language pipeline that
-            turns recycling footage into timestamped evidence about robotic pick
-            attempts.
+              My experience{' '}
+              <ArrowUpRightIcon aria-hidden="true" className="size-3.5" />
+            </Link>
+          </div>
+        </div>
+      </Section>
+      <PhotoGallery />
+      <Divider />
+      <Section className="space-y-8">
+        <div>
+          <SectionHeading>What I&apos;m working on</SectionHeading>
+          <p className="text-sm leading-7 text-[var(--muted-foreground)]">
+            I&apos;m an AI Engineering Intern at EverestLabs, working on
+            computer vision for robotic systems. In my personal projects,
+            I&apos;m building tools that make it easier to experiment with AI
+            and turn ideas into useful software.
           </p>
-          <p>
-            Before that, I founded{' '}
-            <a
-              href="https://deltronailabs.com/"
-              target="_blank"
-              rel="noreferrer"
-              data-sfx-hover="whisper"
-              className="inline-flex items-center gap-1 font-medium text-[var(--foreground)] hover:text-[var(--brand)]"
-            >
-              <CompanyLogo
-                src="/company-logos/deltron-ai-labs-symbol.png"
-                alt=""
-                width={15}
-                height={15}
-              />
-              Deltron AI Labs
-            </a>{' '}
-            and built CRM and workflow automation prototypes for home-service
-            businesses.
+          <Link
+            href="/projects"
+            className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium hover:text-[var(--brand)]"
+          >
+            Explore my projects{' '}
+            <ArrowUpRightIcon aria-hidden="true" className="size-3.5" />
+          </Link>
+        </div>
+        <div>
+          <SectionHeading>What I&apos;m exploring</SectionHeading>
+          <p className="text-sm leading-7 text-[var(--muted-foreground)]">
+            AI agents, visual systems, and the algorithms behind efficient
+            software. I&apos;m interested in how these pieces work individually
+            and what becomes possible when they come together.
+          </p>
+        </div>
+        <div>
+          <SectionHeading>How I work</SectionHeading>
+          <p className="text-sm leading-7 text-[var(--muted-foreground)]">
+            I start with an experiment, inspect the evidence, and improve the
+            result. I like being able to explain what worked, what didn&apos;t,
+            and what to try next.
           </p>
         </div>
       </Section>

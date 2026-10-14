@@ -1,12 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 import { PERSONAL } from '@/app/data'
 import { CompanyLogo } from './company-logo'
 import { VerifiedBadge } from './icons'
-import { useInterfaceSound } from './sound'
+import { PORTRAITS } from './photo-gallery'
 
 function ClickMeHint() {
   return (
@@ -41,44 +40,31 @@ function ClickMeHint() {
 }
 
 export function Avatar() {
-  const [turn, setTurn] = useState(0)
-  const { play } = useInterfaceSound()
+  const [index, setIndex] = useState(0)
+  const photo = PORTRAITS[index]
 
   return (
     <div className="relative">
       <ClickMeHint />
-      <motion.button
+      <button
         type="button"
-        aria-label={`Photo of ${PERSONAL.name}. Show another photo`}
+        aria-label={`Show next portrait of Sri. Photo ${index + 1} of ${PORTRAITS.length}`}
         data-sfx="pop"
         onClick={() => {
-          setTurn((value) => value + 360)
-          play('pop')
+          setIndex((value) => (value + 1) % PORTRAITS.length)
         }}
-        animate={{ rotate: turn }}
-        transition={{ type: 'spring', bounce: 0.2, duration: 0.45 }}
         className="relative block size-16 cursor-pointer overflow-hidden rounded-2xl border border-[var(--border)] ring-4 shadow-lg ring-[var(--muted)] transition-transform duration-200 hover:scale-[1.03] sm:size-20 md:size-24"
       >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={turn}
-            initial={{ opacity: 0.8, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={PERSONAL.avatar}
-              alt={`Photo of ${PERSONAL.name}`}
-              fill
-              priority
-              sizes="96px"
-              className="object-cover"
-            />
-          </motion.div>
-        </AnimatePresence>
-      </motion.button>
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          fill
+          priority
+          sizes="96px"
+          className="object-cover"
+          style={{ objectPosition: photo.avatarPosition }}
+        />
+      </button>
     </div>
   )
 }
@@ -87,9 +73,9 @@ export function HeroHeading() {
   return (
     <div className="ml-4 min-w-0">
       <div className="flex items-center gap-1.5">
-        <h1 className="font-space text-xl font-medium tracking-tight sm:text-xl">
+        <p className="font-space text-xl font-medium tracking-tight sm:text-xl">
           {PERSONAL.name}
-        </h1>
+        </p>
         <VerifiedBadge className="size-4" />
       </div>
       <p className="mt-0.5 flex flex-wrap items-center gap-1.5 text-sm text-[var(--muted-foreground)]">

@@ -18,8 +18,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://sridurga.me/'),
-  alternates: { canonical: '/' },
+  metadataBase: new URL('https://personal-website-six-vert-88.vercel.app/'),
   title: {
     default: `${PERSONAL.name} | ${PERSONAL.tagline}`,
     template: `%s | ${PERSONAL.name}`,
@@ -55,6 +54,9 @@ export default function RootLayout({
           <DesignProvider>
             <InterfaceSoundProvider>
               <LenisProvider>
+                <a href="#main-content" className="skip-link">
+                  Skip to content
+                </a>
                 <SideRails />
                 <Nav />
                 <div className="relative z-10 mx-auto min-h-screen w-full max-w-3xl border-x border-[var(--border)] bg-[var(--background)] px-6 pt-24 pb-6 sm:pt-28 sm:pb-6">
@@ -66,7 +68,11 @@ export default function RootLayout({
                     aria-hidden="true"
                     className="reference-edge-hatch pointer-events-none absolute inset-y-0 left-full hidden w-14 border-x border-[var(--border)]/70 xl:block"
                   />
-                  <main className="relative flex min-h-dvh flex-col gap-8">
+                  <main
+                    id="main-content"
+                    tabIndex={-1}
+                    className="relative flex min-h-dvh flex-col gap-8"
+                  >
                     {children}
                   </main>
                   <Footer />

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { ArrowLeftIcon, ArrowUpRightIcon } from 'lucide-react'
 import { Section, SectionHeading, Divider } from '@/components/site/section'
 import { SkillBadge } from '@/components/site/skill-badge'
+import { ProjectPreview } from '@/components/site/project-preview'
 import { PROJECTS } from '../../data'
 
 export function generateStaticParams() {
@@ -17,7 +18,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const project = PROJECTS.find((item) => item.slug === slug)
-  return { title: project?.name ?? 'Project' }
+  if (!project) return { title: 'Project not found', robots: { index: false } }
+  return {
+    title: project.name,
+    description: project.description,
+    alternates: { canonical: `/projects/${project.slug}` },
+  }
 }
 
 export default async function ProjectDetails({
@@ -26,6 +32,7 @@ export default async function ProjectDetails({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  if (slug === 'prompt-playground') permanentRedirect('/projects/prompt-studio')
   const project = PROJECTS.find((item) => item.slug === slug)
   if (!project) notFound()
 
@@ -80,6 +87,11 @@ export default async function ProjectDetails({
         <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted-foreground)]">
           {project.description} {project.details}
         </p>
+        {['foundry', 'prompt-studio', 'ecg'].includes(project.id) && (
+          <div className="@container mt-6 aspect-[4/3] max-w-md overflow-hidden rounded-xl border border-[var(--border)]">
+            <ProjectPreview id={project.id} />
+          </div>
+        )}
         <div className="mt-5 flex flex-wrap gap-2">
           {project.github && (
             <a

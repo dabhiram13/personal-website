@@ -1,10 +1,15 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Section, SectionHeading } from '@/components/site/section'
+import { Section } from '@/components/site/section'
 import { ProjectCard } from '@/components/site/project-card'
 import { PROJECTS } from '../data'
 
-export const metadata: Metadata = { title: 'Projects' }
+export const metadata: Metadata = {
+  title: 'Projects',
+  description:
+    'Personal projects by Sri: practical AI tools, prompt experiments, and computer vision studies.',
+  alternates: { canonical: '/projects' },
+}
 
 export default function ProjectsPage() {
   return (
@@ -23,7 +28,9 @@ export default function ProjectsPage() {
         <span>/</span>
         <span>Projects</span>
       </nav>
-      <SectionHeading>Projects</SectionHeading>
+      <h1 className="font-space mb-5 text-2xl font-medium tracking-tight">
+        Projects<span className="text-[var(--brand)]">.</span>
+      </h1>
       <p className="-mt-3 mb-5 text-xs text-[var(--muted-foreground)]">
         Applied AI, computer vision, and tools I&apos;ve built.
       </p>

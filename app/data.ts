@@ -1,9 +1,9 @@
 export const PERSONAL = {
   name: 'Abhiram',
   fullName: 'Sri Durga Abhiram Divyakolu',
-  tagline: 'Applied AI Engineer',
+  tagline: 'AI Engineering Intern',
   summary:
-    'Applied AI engineer focused on forward-deployed engineering, computer vision, and production AI systems.',
+    'I’m Sri, an AI Engineering Intern at EverestLabs. I’m interested in how systems work and turning experiments into useful software.',
   email: 'dabhiram13@gmail.com',
   phone: '+1 (571) 564-6161',
   location: 'St. Louis, Missouri',
@@ -11,9 +11,9 @@ export const PERSONAL = {
   linkedin: 'https://www.linkedin.com/in/sri-durga-abhiram-d-910128195/',
   x: 'https://x.com/AIwithAbhi',
   instagram: 'https://www.instagram.com/abhiramsrii',
-  avatar: '/sridurga.png',
-  currentRole: 'AI Engineer Intern',
-  currentCompany: 'EverestLabs AI',
+  avatar: '/photos/sri-sunlit.webp',
+  currentRole: 'AI Engineering Intern',
+  currentCompany: 'EverestLabs',
   currentCompanyUrl: 'https://everestlabs.ai/',
   currentCompanyLogo: '/company-logos/everestlabs-mark.svg',
   education: 'M.S. in Applied Computer Science',
@@ -37,28 +37,20 @@ export type Experience = {
 export const EXPERIENCE: Experience[] = [
   {
     id: 'everestlabs',
-    company: 'EverestLabs AI',
+    company: 'EverestLabs',
     logo: '/company-logos/everestlabs-mark.svg',
-    title: 'AI Engineer Intern',
-    subtitle:
-      'Computer vision & large vision models for robotic performance analysis',
+    title: 'AI Engineering Intern',
+    subtitle: 'Computer vision for robotic systems',
     start: 'Jun 2026',
     end: 'Present',
     link: PERSONAL.currentCompanyUrl,
     linkLabel: 'everestlabs.ai',
     bullets: [
-      'Building the Audit Agent end to end: a computer-vision pipeline that turns IP-camera footage into structured pick-event evidence, then uses vision-language reasoning to classify outcomes and miss categories.',
-      'Designed a two-stage pick-event detection system that over-generates candidates, then filters them to localize pick attempts in video. Recycling cells run about 60 picks per minute across 50+ material classes.',
-      'Building the evaluation layer before making accuracy claims: a human ground-truth protocol and an evaluation harness that scores event detection precision, recall, and F1 against real annotations.',
+      'Working on computer vision for robotic systems, from experiments to evaluating how they perform in practice.',
+      'Inspecting evidence, testing ideas, and improving the reliability of AI software.',
     ],
-    highlights: [
-      'Audit Agent',
-      'vision-language reasoning',
-      'two-stage pick-event detection',
-      'human ground-truth protocol',
-      'precision, recall, and F1',
-    ],
-    tech: ['Python', 'OpenCV', 'PyTorch', 'Vision-language models'],
+    highlights: ['computer vision'],
+    tech: ['Python', 'OpenCV', 'PyTorch'],
   },
   {
     id: 'deltron',
@@ -131,8 +123,8 @@ export const PROJECTS: Project[] = [
     mark: 'ECG',
     description: 'A machine-learning pipeline for classifying ECG heartbeats.',
     details:
-      'Compared Random Forest, SVM, 1D CNN, and LSTM models on 10,634 labeled heartbeats from five MIT-BIH patient records. Random Forest reached 98.82% accuracy on the project evaluation split.',
-    impact: '98.82% accuracy',
+      'Compared Random Forest, SVM, 1D CNN, and LSTM models on 10,634 labeled heartbeats from five MIT-BIH records. The repository reports 98.82% Random Forest accuracy on a stratified 80/20 heartbeat-level split. Beats from a record can appear in both sets; this is not independent patient-held-out evaluation or clinical validation.',
+    impact: '98.82% reported · heartbeat-level split',
     tech: ['Python', 'PyTorch', 'scikit-learn', 'SciPy'],
     github: 'https://github.com/dabhiram13/ECG-Arrhythmia-Detection-System',
     tone: 'blue',
@@ -152,16 +144,16 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
-    id: 'prompt-playground',
-    slug: 'prompt-playground',
-    name: 'Prompt Playground',
-    mark: 'PP',
-    description: 'A hands-on prompt engineering teaching tool.',
+    id: 'prompt-studio',
+    slug: 'prompt-studio',
+    name: 'Prompt Studio',
+    mark: 'PS',
+    description:
+      'Compare prompts, test what matters, and turn them into reusable tools.',
     details:
-      'Teaches a five-block prompt framework (Role, Context, Task, Format, Examples), assembles prompts live as users type, and streams responses from GPT-4o, Claude, and Gemini.',
-    tech: ['Python', 'Flask', 'OpenRouter API', 'Vanilla JavaScript'],
+      'Build prompts from Role, Context, Task, Format, and Examples. Run side-by-side A/B comparisons, remove a block with an ablation to examine its effect, and check saved versions against reusable inputs and checklists. Turn a version into a mini-app with fill-in fields, or export it as Python or JavaScript.',
+    tech: ['Python', 'Flask', 'SQLite', 'OpenRouter API', 'Vanilla JavaScript'],
     github: 'https://github.com/dabhiram13/Prompt-Playground-Application',
-    image: '/project1.png',
     tone: 'orange',
   },
   {
@@ -182,12 +174,10 @@ export const PROJECTS: Project[] = [
     slug: 'foundry',
     name: 'Foundry',
     mark: 'F',
-    description:
-      'A connected work-and-verification framework for coding agents.',
+    description: 'An approval-gated workflow for building software with AI.',
     details:
-      'The Foundry project from the existing portfolio. Visit the repository for its current architecture, documentation, and implementation.',
+      'Connect research, planning, design, implementation, and review in one workflow. Specialist roles handle each stage, with owner approval of the plan and design before building. Tasks, decisions, check results, and review findings carry forward between sessions. The final handoff is local; publishing and deployment are separate decisions.',
     tech: ['TypeScript', 'Node.js'],
-    github: 'https://github.com/dabhiram13/foundry',
     tone: 'slate',
   },
   {
@@ -261,7 +251,6 @@ export const FOOTER_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Experience', href: '/#experience' },
 ]
 

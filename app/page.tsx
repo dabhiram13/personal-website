@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
   BriefcaseBusinessIcon,
@@ -7,7 +8,6 @@ import {
   PhoneIcon,
 } from 'lucide-react'
 import { Avatar, HeroHeading } from '@/components/site/hero'
-import { DesignControl } from '@/components/site/design-control'
 import { Divider, Section, SectionHeading } from '@/components/site/section'
 import { ExperienceItem } from '@/components/site/experience'
 import { ProjectCard } from '@/components/site/project-card'
@@ -16,6 +16,12 @@ import { ContactCard } from '@/components/site/contact-card'
 import { SkillBadge } from '@/components/site/skill-badge'
 import { CompanyLogo } from '@/components/site/company-logo'
 import { EDUCATION, EXPERIENCE, PERSONAL, PROJECTS, STACK } from './data'
+
+export const metadata: Metadata = {
+  title: 'Sri · AI & computer vision',
+  description: PERSONAL.summary,
+  alternates: { canonical: '/' },
+}
 
 function InfoRow({
   icon,
@@ -45,29 +51,11 @@ function Hero() {
 
 function Introduction() {
   return (
-    <Section className="text-xs leading-snug text-[var(--muted-foreground)] sm:text-sm">
-      <p>
-        Applied AI engineer focused on forward-deployed engineering, computer
-        vision, and production AI systems. I&apos;m building an Audit Agent at{' '}
-        <a
-          href={PERSONAL.currentCompanyUrl}
-          target="_blank"
-          rel="noreferrer"
-          data-sfx-hover="whisper"
-          className="inline-flex items-center gap-1.5 font-medium whitespace-nowrap text-[var(--foreground)]"
-        >
-          <CompanyLogo
-            src={PERSONAL.currentCompanyLogo}
-            alt=""
-            width={18}
-            height={16}
-          />
-          EverestLabs AI
-        </a>
-        , turning recycling footage into timestamped pick-attempt audits. I care
-        about thoughtful product <DesignControl /> as well as the systems behind
-        it.
-      </p>
+    <Section className="text-sm leading-relaxed text-[var(--muted-foreground)]">
+      <h1 className="font-space mb-4 max-w-xl text-[28px] leading-[1.2] font-medium tracking-tight text-[var(--foreground)] sm:text-4xl">
+        Building practical tools with AI and computer vision.
+      </h1>
+      <p className="max-w-xl leading-7">{PERSONAL.summary}</p>
 
       <ul className="mt-3 space-y-0.5">
         <InfoRow icon={<BriefcaseBusinessIcon className="size-3" />}>
@@ -144,7 +132,7 @@ function EducationSection() {
         {EDUCATION.map((item) => (
           <article
             key={item.school}
-            className="flex items-center gap-3 rounded-xl border border-[var(--border)]/70 bg-[var(--card)]/50 px-3 py-3"
+            className="flex items-start gap-3 rounded-xl border border-[var(--border)]/70 bg-[var(--card)]/50 px-3 py-4"
           >
             <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--background)] p-1">
               <CompanyLogo
@@ -156,19 +144,14 @@ function EducationSection() {
               />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block truncate text-sm font-semibold">
+              <span className="block text-sm leading-snug font-semibold">
+                {item.school}
+              </span>
+              <span className="mt-1 block text-xs leading-relaxed text-[var(--muted-foreground)]">
                 {item.degree}
               </span>
-              <span className="block truncate font-mono text-[10px] text-[var(--muted-foreground)] sm:hidden">
-                {item.location}
-              </span>
-            </span>
-            <span className="hidden shrink-0 text-right sm:block">
-              <span className="block font-mono text-[11px] text-[var(--muted-foreground)]">
-                {item.date}
-              </span>
-              <span className="block text-[10px] text-[var(--muted-foreground)]">
-                {item.location}
+              <span className="mt-1 block font-mono text-[10px] leading-relaxed text-[var(--muted-foreground)]">
+                {item.date} · {item.location}
               </span>
             </span>
           </article>
@@ -218,7 +201,7 @@ function Commits() {
     <Section>
       <SectionHeading>A year in commits</SectionHeading>
       <p className="-mt-3 mb-4 text-[11px] text-[var(--muted-foreground)]">
-        Proof I ship. The grey squares are me touching grass.
+        A look at my public GitHub activity.
       </p>
       <ContributionsGraph username="dabhiram13" />
     </Section>

@@ -9,6 +9,7 @@ import {
   SparklesIcon,
 } from 'lucide-react'
 import type { Project } from '@/app/data'
+import { ProjectPreview } from './project-preview'
 
 const TONES = {
   blue: 'from-blue-950 via-slate-950 to-slate-900 text-blue-300',
@@ -19,6 +20,9 @@ const TONES = {
 }
 
 function Illustration({ project }: { project: Project }) {
+  if (['foundry', 'prompt-studio', 'ecg'].includes(project.id)) {
+    return <ProjectPreview id={project.id} />
+  }
   if (project.image) {
     return (
       <Image
@@ -87,7 +91,7 @@ export function ProjectCard({ project }: { project: Project }) {
       data-sfx-hover="hover"
       className="group flex min-w-0 flex-col gap-3 rounded-xl focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--background)] focus-visible:outline-none"
     >
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--canvas)]">
+      <div className="@container relative aspect-[4/3] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--canvas)]">
         <Illustration project={project} />
       </div>
       <div className="flex min-w-0 flex-col gap-1 px-0.5">

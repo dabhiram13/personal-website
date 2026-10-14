@@ -10,10 +10,10 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <Image
               src={PERSONAL.avatar}
-              alt={PERSONAL.name}
+              alt="Sunlit portrait of Sri"
               width={40}
               height={40}
-              className="size-10 rounded-lg object-cover"
+              className="size-10 rounded-lg object-cover object-[50%_45%]"
             />
             <div>
               <p className="text-sm font-semibold">{PERSONAL.name}</p>

@@ -88,3 +88,39 @@ html[data-font='mono'] body {
   outline: 2px solid var(--brand);
   outline-offset: 3px;
 }
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--background);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.875rem;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.portrait-gallery {
+  container-type: inline-size;
+}
+
+.portrait-stage {
+  --portrait-width: min(66cqw, 240px);
+  height: calc(var(--portrait-width) * 4 / 3 + 80px);
+}
+
+.portrait-card {
+  width: var(--portrait-width);
+  margin-left: calc(var(--portrait-width) / -2);
+}

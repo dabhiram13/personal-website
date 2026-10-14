@@ -5,12 +5,10 @@ import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState } from 'react'
 import {
-  BookOpenIcon,
   Code2Icon,
   HouseIcon,
   InstagramIcon,
   MailIcon,
-  MessageCircleIcon,
   MenuIcon,
   MoonIcon,
   SunIcon,
@@ -27,16 +25,12 @@ const LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Guestbook', href: '/guestbook' },
 ]
 
 const NAV_ICONS: Record<string, React.ElementType> = {
   Home: HouseIcon,
   About: UserRoundIcon,
   Projects: Code2Icon,
-  Blog: BookOpenIcon,
-  Guestbook: MessageCircleIcon,
 }
 
 const SOCIAL_ICONS: Record<string, React.ElementType> = {
@@ -55,7 +49,12 @@ function GitHubMenu() {
       if (!root.current?.contains(event.target as Node)) setOpen(false)
     }
     const escape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        if (root.current?.contains(document.activeElement)) {
+          root.current.querySelector('button')?.focus()
+        }
+      }
     }
     document.addEventListener('pointerdown', outside)
     document.addEventListener('keydown', escape)
@@ -66,7 +65,7 @@ function GitHubMenu() {
   }, [])
 
   return (
-    <div className="relative">
+    <div ref={root} className="relative">
       <button
         type="button"
         aria-label="GitHub accounts"
@@ -120,7 +119,12 @@ function MobileMenu({ pathname }: { pathname: string }) {
       if (!root.current?.contains(event.target as Node)) setOpen(false)
     }
     const escape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        if (root.current?.contains(document.activeElement)) {
+          root.current.querySelector('button')?.focus()
+        }
+      }
     }
     document.addEventListener('pointerdown', outside)
     document.addEventListener('keydown', escape)
@@ -227,7 +231,7 @@ export function Nav() {
   useEffect(() => setMounted(true), [])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex h-14 justify-center">
+    <header className="fixed inset-x-0 top-0 z-50 flex h-14 justify-center bg-[var(--background)]/95 backdrop-blur-sm">
       <div className="relative flex h-14 w-full max-w-3xl items-center justify-end border-b border-[var(--border)] px-3">
         <nav
           aria-label="Main navigation"
