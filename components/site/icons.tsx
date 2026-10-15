@@ -43,10 +43,7 @@ export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
 export function VerifiedBadge(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
-      <path
-        fill="#1d9bf0"
-        d="M12 1.75 14.47 4h3.31v3.31L20.03 9.8l-1.53 2.94 1.53 2.94-2.25 2.51v3.31h-3.31L12 23.75 9.53 21.5H6.22v-3.31L3.97 15.68 5.5 12.74 3.97 9.8 6.22 7.29V4h3.31L12 1.75Z"
-      />
+      <circle cx="12" cy="12" r="10" fill="#1d9bf0" />
       <path
         fill="#fff"
         d="m10.6 15.2-2.5-2.5 1.06-1.06 1.44 1.44 4.24-4.24 1.06 1.06-5.3 5.3Z"

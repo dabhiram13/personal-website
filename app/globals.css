@@ -117,7 +117,7 @@ html[data-font='mono'] body {
 
 .portrait-stage {
   --portrait-width: min(66cqw, 240px);
-  height: calc(var(--portrait-width) * 4 / 3 + 80px);
+  height: calc(var(--portrait-width) * 4 / 3 + 72px);
 }
 
 .portrait-card {

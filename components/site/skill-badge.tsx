@@ -11,6 +11,7 @@ import {
   WorkflowIcon,
   type LucideIcon,
 } from 'lucide-react'
+import Image from 'next/image'
 
 const ICONS: Record<string, string> = {
   Anthropic: 'anthropic',
@@ -80,13 +81,11 @@ export function SkillBadge({ name }: { name: string }) {
       className="group inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--background)] px-2.5 py-1 text-[11px] text-[var(--muted-foreground)] transition-[transform,border-color,background-color,color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-[var(--brand)]/50 hover:bg-[var(--muted)] hover:text-[var(--foreground)] hover:shadow-sm"
     >
       {icon ? (
-        <img
+        <Image
           src={`/skill-icons/${icon}.svg`}
           alt=""
-          aria-hidden="true"
           width="14"
           height="14"
-          loading="lazy"
           className={iconClassName}
         />
       ) : (
