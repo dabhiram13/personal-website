@@ -7,8 +7,8 @@ import {
 } from '@/components/ui/expandable'
 
 /**
-  * Inline expandable word used for short details in the bio.
-  * Click the underlined word to open a small detail card.
+ * Inline expandable word used for short details in the bio.
+ * Click the underlined word to open a small detail card.
  */
 export function ExpandableWord({
   word,
@@ -19,7 +19,7 @@ export function ExpandableWord({
 }) {
   return (
     <Expandable expandDirection="vertical" className="inline">
-      {({ isExpanded }) => (
+      {() => (
         <span className="inline">
           <ExpandableTrigger className="inline font-medium text-[var(--text)] underline decoration-dotted underline-offset-4 transition-colors hover:text-blue-500">
             {word}
