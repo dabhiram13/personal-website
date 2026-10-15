@@ -15,6 +15,7 @@ import { ContributionsGraph } from '@/components/site/contributions'
 import { ContactCard } from '@/components/site/contact-card'
 import { SkillBadge } from '@/components/site/skill-badge'
 import { CompanyLogo } from '@/components/site/company-logo'
+import { DesignControl } from '@/components/site/design-control'
 import { EDUCATION, EXPERIENCE, PERSONAL, PROJECTS, STACK } from './data'
 
 export const metadata: Metadata = {
@@ -52,10 +53,44 @@ function Hero() {
 function Introduction() {
   return (
     <Section className="text-sm leading-relaxed text-[var(--muted-foreground)]">
-      <h1 className="font-space mb-4 max-w-xl text-[28px] leading-[1.2] font-medium tracking-tight text-[var(--foreground)] sm:text-4xl">
-        Building practical tools with AI and computer vision.
-      </h1>
-      <p className="max-w-xl leading-7">{PERSONAL.summary}</p>
+      <p className="max-w-xl text-[13px] leading-[1.7]">
+        AI Engineering Intern focused on building practical tools with AI and
+        computer vision. I&apos;m interested in how systems work, turning
+        experiments into useful software, and the <DesignControl /> that makes
+        it easier to use. Shipping @{' '}
+        <a
+          href={PERSONAL.currentCompanyUrl}
+          target="_blank"
+          rel="noreferrer"
+          data-sfx-hover="whisper"
+          className="inline-flex items-center gap-1 font-medium text-[var(--foreground)]"
+        >
+          <CompanyLogo
+            src={PERSONAL.currentCompanyLogo}
+            alt=""
+            width={15}
+            height={13}
+          />
+          {PERSONAL.currentCompany}
+        </a>
+        , previously @{' '}
+        <a
+          href={PERSONAL.previousCompanyUrl}
+          target="_blank"
+          rel="noreferrer"
+          data-sfx-hover="whisper"
+          className="inline-flex items-center gap-1 font-medium text-[var(--foreground)]"
+        >
+          <CompanyLogo
+            src={PERSONAL.previousCompanyLogo}
+            alt=""
+            width={15}
+            height={13}
+          />
+          {PERSONAL.previousCompany}
+        </a>
+        .
+      </p>
 
       <ul className="mt-3 space-y-0.5">
         <InfoRow icon={<BriefcaseBusinessIcon className="size-3" />}>

@@ -5,11 +5,13 @@ import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { useEffect, useRef, useState } from 'react'
 import {
+  BookOpenIcon,
   Code2Icon,
   HouseIcon,
   InstagramIcon,
   MailIcon,
   MenuIcon,
+  MessageCircleIcon,
   MoonIcon,
   SunIcon,
   UserRoundIcon,
@@ -25,12 +27,16 @@ const LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Guestbook', href: '/guestbook' },
 ]
 
 const NAV_ICONS: Record<string, React.ElementType> = {
   Home: HouseIcon,
   About: UserRoundIcon,
   Projects: Code2Icon,
+  Blog: BookOpenIcon,
+  Guestbook: MessageCircleIcon,
 }
 
 const SOCIAL_ICONS: Record<string, React.ElementType> = {

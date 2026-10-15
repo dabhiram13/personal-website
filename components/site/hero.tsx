@@ -65,9 +65,9 @@ export function HeroHeading() {
   return (
     <div className="ml-4 min-w-0">
       <div className="flex items-center gap-1.5">
-        <p className="font-space text-xl font-medium tracking-tight sm:text-xl">
+        <h1 className="font-space text-xl font-medium tracking-tight sm:text-xl">
           {PERSONAL.name}
-        </p>
+        </h1>
         <VerifiedBadge className="size-4" />
       </div>
       <p className="mt-0.5 flex flex-wrap items-center gap-1.5 text-sm text-[var(--muted-foreground)]">
