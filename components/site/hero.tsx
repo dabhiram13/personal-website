@@ -9,46 +9,23 @@ import { PORTRAITS } from './photo-gallery'
 
 function ClickMeHint() {
   return (
-    <div className="pointer-events-none absolute -top-6 left-1/2 z-20 -translate-x-1/2 select-none">
-      <span className="absolute -top-3 left-1 rotate-[-8deg] text-[10px] text-[var(--muted-foreground)] italic">
-        click me
-      </span>
+    <div
+      className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 flex -translate-x-1/2 items-end gap-1 font-mono text-[10px] leading-none whitespace-nowrap text-[var(--muted-foreground)]/60 transition-opacity duration-500 motion-reduce:transition-none"
+      style={{ fontFamily: 'var(--font-geist-mono), ui-monospace, monospace' }}
+    >
+      click me
       <svg
-        width="72"
-        height="24"
-        viewBox="0 0 72 24"
+        viewBox="0 0 14 14"
         fill="none"
         aria-hidden="true"
-        className="text-[var(--muted-foreground)]"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="size-3 translate-y-0.5"
       >
-        <path
-          d="M7 3C15 5 22 10 29 17"
-          stroke="currentColor"
-          strokeWidth="1.1"
-          strokeDasharray="2.5 3.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="m24 12 5 5-6-1"
-          stroke="currentColor"
-          strokeWidth="1.1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M65 3C57 5 50 10 43 17"
-          stroke="currentColor"
-          strokeWidth="1.1"
-          strokeDasharray="2.5 3.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="m48 12-5 5 6-1"
-          stroke="currentColor"
-          strokeWidth="1.1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M2 2c5 0 8 3 8 10" />
+        <path d="M6.5 8.5 10 12.5 13 8" />
       </svg>
     </div>
   )
@@ -59,7 +36,7 @@ export function Avatar() {
   const photo = PORTRAITS[index]
 
   return (
-    <div className="relative">
+    <div className="relative shrink-0">
       <ClickMeHint />
       <button
         type="button"
