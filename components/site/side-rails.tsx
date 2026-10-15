@@ -41,7 +41,7 @@ export function SideRails() {
         })}
         <a
           href={`tel:${PERSONAL.phone.replace(/[^\d+]/g, '')}`}
-          aria-label="Call Abhiram"
+          aria-label="Call Sri Durga Abhiram"
           data-sfx="tap"
           className="mt-1 flex size-8 items-center justify-center rounded-full border border-[var(--border)] text-[var(--muted-foreground)]/70 transition-colors hover:text-[var(--foreground)]"
         >

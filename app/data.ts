@@ -1,5 +1,5 @@
 export const PERSONAL = {
-  name: 'Abhiram',
+  name: 'Sri Durga Abhiram',
   fullName: 'Sri Durga Abhiram Divyakolu',
   tagline: 'AI Engineering Intern',
   summary:

@@ -1,10 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react'
 import { motion } from 'motion/react'
 import {
-  useId,
+  useEffect,
   useRef,
   useState,
   useSyncExternalStore,
@@ -22,21 +21,18 @@ function subscribeToReducedMotion(onChange: () => void) {
 export const PORTRAITS = [
   {
     src: '/photos/sri-sunlit.webp',
-    label: 'Sunlit portrait',
     alt: 'Sri in a peach shirt, with sunlight across his face',
     position: '50% 24%',
     avatarPosition: '50% 45%',
   },
   {
     src: '/photos/sri-cap.webp',
-    label: 'Hoodie and cap',
     alt: 'Sri wearing a grey hoodie and holding the brim of a dark cap',
     position: '50% 40%',
     avatarPosition: '50% 50%',
   },
   {
     src: '/photos/sri-tie.webp',
-    label: 'Black shirt and tie',
     alt: 'Sri taking a mirror portrait in a black shirt and tie',
     position: '50% 20%',
     avatarPosition: '50% 25%',
@@ -52,7 +48,6 @@ export function PhotoGallery() {
     () => window.matchMedia(reducedMotionQuery).matches,
     () => false,
   )
-  const id = useId()
   const pointer = useRef<{
     id: number
     x: number
@@ -62,7 +57,14 @@ export function PhotoGallery() {
   const suppressClick = useRef(false)
   const index =
     ((page % PORTRAITS.length) + PORTRAITS.length) % PORTRAITS.length
-  const photo = PORTRAITS[index]
+
+  useEffect(() => {
+    if (reducedMotion) return
+    const interval = window.setInterval(() => {
+      setPage((value) => value + 1)
+    }, 3600)
+    return () => window.clearInterval(interval)
+  }, [reducedMotion])
 
   function resetDrag() {
     pointer.current = null
@@ -118,16 +120,9 @@ export function PhotoGallery() {
 
   return (
     <figure aria-label="Portraits of Sri" className="portrait-gallery min-w-0">
-      <p
-        id={`${id}-hint`}
-        className="mb-1 text-center font-mono text-[10px] text-[var(--muted-foreground)]"
-      >
-        Drag, swipe or click a card · ← → to browse
-      </p>
       <button
         type="button"
         aria-label="Show next portrait of Sri"
-        aria-describedby={`${id}-hint ${id}-caption`}
         onPointerDown={startDrag}
         onPointerMove={moveDrag}
         onPointerUp={endDrag}
@@ -186,63 +181,10 @@ export function PhotoGallery() {
                   style={{ objectPosition: item.position }}
                 />
               </span>
-              <span
-                aria-hidden="true"
-                className="mt-3 block text-xs text-[var(--muted-foreground)]"
-              >
-                {item.label}
-              </span>
             </motion.span>
           )
         })}
       </button>
-      <div className="mt-2 flex items-center justify-center gap-2 sm:gap-4">
-        <button
-          type="button"
-          aria-label="Previous portrait"
-          onClick={() => setPage((value) => value - 1)}
-          className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-[var(--border)] hover:bg-[var(--muted)]"
-        >
-          <ArrowLeftIcon aria-hidden="true" className="size-4" />
-        </button>
-        <div role="group" aria-label="Choose a portrait" className="flex gap-2">
-          {PORTRAITS.map((item, itemIndex) => (
-            <button
-              key={item.src}
-              type="button"
-              aria-label={`Show ${item.label.toLowerCase()}`}
-              aria-pressed={index === itemIndex}
-              onClick={() => selectPortrait(itemIndex)}
-              className={`relative h-12 w-11 cursor-pointer overflow-hidden rounded-lg border-2 ${index === itemIndex ? 'border-[var(--brand)]' : 'border-transparent opacity-65 hover:opacity-100'}`}
-            >
-              <Image
-                src={item.src}
-                alt=""
-                fill
-                sizes="44px"
-                className="object-cover"
-                style={{ objectPosition: item.avatarPosition }}
-              />
-            </button>
-          ))}
-        </div>
-        <button
-          type="button"
-          aria-label="Next portrait"
-          onClick={() => setPage((value) => value + 1)}
-          className="flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-[var(--border)] hover:bg-[var(--muted)]"
-        >
-          <ArrowRightIcon aria-hidden="true" className="size-4" />
-        </button>
-      </div>
-      <figcaption
-        id={`${id}-caption`}
-        aria-live="polite"
-        aria-atomic="true"
-        className="mt-2 text-center font-mono text-[10px] text-[var(--muted-foreground)]"
-      >
-        {String(index + 1).padStart(2, '0')} / 03 · {photo.label}
-      </figcaption>
     </figure>
   )
 }

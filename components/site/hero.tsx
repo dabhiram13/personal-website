@@ -9,26 +9,39 @@ import { PORTRAITS } from './photo-gallery'
 
 function ClickMeHint() {
   return (
-    <div className="absolute -top-6 left-1/2 -translate-x-1/2 select-none">
-      <span className="absolute -top-3 left-1 rotate-[-8deg] text-[10px] text-[var(--muted-foreground)] italic">
-        click me
+    <div className="pointer-events-none absolute -top-12 left-1/2 z-10 w-28 -translate-x-1/2 text-center select-none">
+      <span className="inline-flex rounded-full border border-[var(--border)] bg-[var(--background)] px-2 py-1 font-mono text-[9px] tracking-wide text-[var(--foreground)] uppercase shadow-sm">
+        Click to change
       </span>
       <svg
-        width="72"
-        height="24"
-        viewBox="0 0 72 24"
+        width="96"
+        height="18"
+        viewBox="0 0 96 18"
         fill="none"
-        className="text-[var(--muted-foreground)]"
+        aria-hidden="true"
+        className="mx-auto mt-0.5 text-[var(--muted-foreground)]"
       >
         <path
-          d="M8 3C20 13 48 15 62 22"
+          d="M10 2C18 3 26 8 35 15"
           stroke="currentColor"
           strokeWidth="1.2"
-          strokeDasharray="3 4"
           strokeLinecap="round"
         />
         <path
-          d="m56 18 7 5-5 2"
+          d="m29 12 6 3-6 2"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M86 2C78 3 70 8 61 15"
+          stroke="currentColor"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+        <path
+          d="m67 12-6 3 6 2"
           stroke="currentColor"
           strokeWidth="1.2"
           strokeLinecap="round"
