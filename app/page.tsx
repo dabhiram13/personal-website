@@ -86,6 +86,7 @@ function Introduction() {
             alt=""
             width={15}
             height={13}
+            className="translate-y-px"
           />
           {PERSONAL.previousCompany}
         </a>
