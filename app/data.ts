@@ -16,6 +16,9 @@ export const PERSONAL = {
   currentCompany: 'EverestLabs',
   currentCompanyUrl: 'https://everestlabs.ai/',
   currentCompanyLogo: '/company-logos/everestlabs-mark.svg',
+  previousCompany: 'Deltron AI Labs LLC',
+  previousCompanyUrl: 'https://deltronailabs.com/',
+  previousCompanyLogo: '/company-logos/deltron-ai-labs-symbol.png',
   education: 'M.S. in Applied Computer Science',
 }
 
@@ -61,6 +64,8 @@ export const EXPERIENCE: Experience[] = [
       'Independent CRM and workflow automation prototypes for home-service businesses',
     start: 'Dec 2025',
     end: 'Apr 2026',
+    link: 'https://deltronailabs.com/',
+    linkLabel: 'deltronailabs.com',
     bullets: [
       'Built reusable GoHighLevel prototypes for lead capture, CRM pipelines, automated follow-up, and appointment-booking workflows.',
       'Connected forms, websites, calendars, SMS, email, voicemail, and Messenger into end-to-end demos, with setup steps documented.',
@@ -251,6 +256,8 @@ export const FOOTER_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Projects', href: '/projects' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Guestbook', href: '/guestbook' },
   { label: 'Experience', href: '/#experience' },
 ]
 
